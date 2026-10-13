@@ -1,0 +1,43 @@
+# 环境变量：可能包含本机地址、密钥，不提交
+.env
+
+# Python 虚拟环境
+.venv/
+venv/
+env/
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# 包管理
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+
+# 测试与类型检查缓存
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 日志
+*.log
+logs/
+
+# 模型文件（体积大，不入库）
+*.gguf
+*.bin
+*.safetensors
+models/
