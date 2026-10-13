@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+langchain-core
+langchain-openai
