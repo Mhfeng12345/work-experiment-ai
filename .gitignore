@@ -34,6 +34,7 @@ htmlcov/
 
 # 日志
 *.log
+*.err
 logs/
 
 # 模型文件（体积大，不入库）

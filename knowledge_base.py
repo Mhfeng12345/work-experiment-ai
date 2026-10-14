@@ -1,4 +1,6 @@
-CURRENT_EXP_KNOWLEDGE = """
+# -------------------- 实验知识库 --------------------
+
+KNOWLEDGE_EXP_01 = """
 实验名称：集成电路封装技术与虚拟仿真实践
 
 一、实践目的
@@ -63,3 +65,22 @@ TSV即硅通孔，通过硅片内部的垂直导电通路实现不同层之间�
 4. 提出改进建议时，应尽可能关联具体任务、步骤、题目和知识点。
 5. 本知识库为分析参考，不代表每个任务都必须执行全部工艺。
 """
+
+# 后续其他实验在这里继续添加
+# KNOWLEDGE_EXP_02 = """..."""
+# KNOWLEDGE_EXP_03 = """..."""
+
+
+# -------------------- 映射表（key 使用完整实验名称） --------------------
+EXPERIMENT_KNOWLEDGE_MAP = {
+    "集成电路封装技术与虚拟仿真实践": KNOWLEDGE_EXP_01,
+    # "下一个实验完整名称": KNOWLEDGE_EXP_02,
+}
+
+
+def get_knowledge(exp_name: str) -> str:
+    knowledge = EXPERIMENT_KNOWLEDGE_MAP.get(exp_name)
+    if knowledge is None:
+        supported = "、".join(EXPERIMENT_KNOWLEDGE_MAP.keys())
+        raise ValueError(f"未知实验: {exp_name}，当前支持: {supported}")
+    return knowledge
