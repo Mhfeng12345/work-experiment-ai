@@ -2,3 +2,6 @@ fastapi
 uvicorn[standard]
 langchain-core
 langchain-openai
+langchain-chroma
+langchain-huggingface
+sentence-transformers
