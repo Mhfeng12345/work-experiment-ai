@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import threading
@@ -170,7 +171,9 @@ async def experiment_chat(request: ExperimentChatRequest):
     exp_name = request.experiment_name
 
     try:
-        docs = search_knowledge(request.question, experiment_name=exp_name, k=4)
+        docs = await asyncio.to_thread(
+            search_knowledge, request.question, experiment_name=exp_name, k=4
+        )
     except ValueError as e:
         supported = "、".join(list_experiment_names())
         raise HTTPException(
