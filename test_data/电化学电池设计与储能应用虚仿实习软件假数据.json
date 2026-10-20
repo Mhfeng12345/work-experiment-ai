@@ -1,0 +1,300 @@
+{
+  "experiment_data": {
+    "experiment_name": "电化学电池设计与储能应用虚仿实习软件",
+    "tasks": [
+      {
+        "name": "电池设计生产实习",
+        "steps": [
+          {
+            "name": "步骤1：材料选型（正极、负极、电解质、隔膜）",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：理论电压与容量计算（法拉第定律）",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：电芯结构组装",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：制造工艺学习（涂布、卷绕、注液）",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：设计方案评审与参数优化",
+            "status": "not_started"
+          }
+        ]
+      },
+      {
+        "name": "电池性能测试实习",
+        "steps": [
+          {
+            "name": "步骤1：SOC-电压特性测试",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：SOC-内阻特性测试",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：特性曲线生成与分析",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：测试数据处理与报告",
+            "status": "in_progress"
+          }
+        ]
+      },
+      {
+        "name": "电池模组与热管理实习",
+        "steps": [
+          {
+            "name": "步骤1：串并联模组拓扑设计",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：发热量测试",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：热失控测试",
+            "status": "incomplete"
+          },
+          {
+            "name": "步骤4：BMS均衡与保护验证",
+            "status": "not_started"
+          },
+          {
+            "name": "步骤5：热管理方案优化",
+            "status": "not_started"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "question": "电化学电池的核心组成部分不包括（ ）。",
+        "option": [
+          "A、正极",
+          "B、负极",
+          "C、电解质与隔膜",
+          "D、换向器"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "电池理论容量的计算主要依据（ ）。",
+        "option": [
+          "A、法拉第定律（活性物质质量、摩尔质量与转移电子数）",
+          "B、欧姆定律",
+          "C、焦耳定律",
+          "D、换向定律"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "单体电芯串联组成模组主要提升系统的（ ）。",
+        "option": [
+          "A、总容量",
+          "B、总电压",
+          "C、总质量",
+          "D、总内阻"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "单体电芯并联组成模组主要提升系统的（ ）。",
+        "option": [
+          "A、总电压",
+          "B、总容量",
+          "C、总功率上限",
+          "D、总高度"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "SOC 表示（ ）。",
+        "option": [
+          "A、荷电状态，即剩余可用电量相对容量的状态指标",
+          "B、电池外壳温度",
+          "C、充电倍率",
+          "D、放电功率"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "电池热失控是指（ ）。",
+        "option": [
+          "A、电池在极端工况下发生的链式反应",
+          "B、电池正常放电过程",
+          "C、电池容量标定过程",
+          "D、单体均衡过程"
+        ],
+        "answer": "B",
+        "correct_answer": "A"
+      },
+      {
+        "question": "下列不属于 BMS（电池管理系统）功能的是（ ）。",
+        "option": [
+          "A、电压、电流、温度实时监测",
+          "B、SOC 估算与单体均衡",
+          "C、过充过放保护与热管理控制",
+          "D、机械整流换向"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "可充电电池实现能量循环存储与释放的方式是（ ）。",
+        "option": [
+          "A、通过外加电压逆转反应过程",
+          "B、通过机械换向器换向",
+          "C、通过提高环境温度",
+          "D、通过增加隔膜厚度"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "SOC 特性测试（电压、内阻标定）的主要用途是（ ）。",
+        "option": [
+          "A、建立电池特性曲线，为剩余电量估算和健康状态评估提供依据",
+          "B、提高电池额定电压",
+          "C、替代热管理系统",
+          "D、直接增加电池容量"
+        ],
+        "answer": "",
+        "correct_answer": "A"
+      },
+      {
+        "question": "决定电池工作电压、容量、倍率性能与安全特性的核心基础是（ ）。",
+        "option": [
+          "A、外壳颜色",
+          "B、材料体系",
+          "C、封装尺寸",
+          "D、充电桩型号"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "电池由以下哪些核心部分组成（ ）。",
+        "option": [
+          "A、正极",
+          "B、负极",
+          "C、电解质",
+          "D、隔膜"
+        ],
+        "answer": "ABCD",
+        "correct_answer": "ABCD"
+      },
+      {
+        "question": "BMS（电池管理系统）具备的功能包括（ ）。",
+        "option": [
+          "A、电压、电流、温度实时监测",
+          "B、SOC 估算与单体均衡",
+          "C、过充过放保护与热管理控制",
+          "D、机械整流换向"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于串并联模组技术，下列说法正确的是（ ）。",
+        "option": [
+          "A、串联提升系统总电压",
+          "B、并联提升系统总容量",
+          "C、合理拓扑用于满足不同场景电压、容量需求",
+          "D、串并联对系统电压容量均无影响"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "材料体系直接影响电池的（ ）。",
+        "option": [
+          "A、工作电压与容量",
+          "B、倍率性能",
+          "C、循环寿命与安全特性",
+          "D、外壳颜色"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "电池性能测试实习通常包含（ ）。",
+        "option": [
+          "A、SOC-电压测试",
+          "B、SOC-内阻测试",
+          "C、特性曲线生成与数据处理",
+          "D、整机装配测试"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于热管理与热失控，下列说法正确的是（ ）。",
+        "option": [
+          "A、充放电过程伴随焦耳热与反应热",
+          "B、温度直接影响电池性能、寿命与安全性",
+          "C、极端工况可能触发热失控链式反应",
+          "D、热失控与温度无关"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "储能场景应用中常见的典型场景包括（ ）。",
+        "option": [
+          "A、储能电站",
+          "B、动力电池（新能源汽车）",
+          "C、通过仿真验证不同功率、工况下的电池性能",
+          "D、纯办公文档处理"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "电池设计生产实习的核心环节包括（ ）。",
+        "option": [
+          "A、材料选型",
+          "B、参数计算（理论电压、容量）",
+          "C、电芯制造工艺",
+          "D、直接进行整机销售"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于容量与电压计算，下列说法正确的是（ ）。",
+        "option": [
+          "A、理论容量基于法拉第定律计算",
+          "B、结合活性物质利用率、成组效率可得到实际有效容量",
+          "C、可得到电池的理论工作电压",
+          "D、容量与活性物质质量无关"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "本实习软件涉及的主要实验环节包括（ ）。",
+        "option": [
+          "A、材料选型与电池结构组装",
+          "B、SOC-电压、SOC-内阻测试",
+          "C、电池模组组装与发热量、热失控测试",
+          "D、储能电站与新能源汽车仿真"
+        ],
+        "answer": "ABCD",
+        "correct_answer": "ABCD"
+      }
+    ]
+  }
+}

@@ -1,0 +1,296 @@
+{
+  "experiment_data": {
+    "experiment_name": "集成电路封装技术与虚拟仿真实践",
+    "tasks": [
+      {
+        "name": "倒装芯片生产实习",
+        "steps": [
+          {
+            "name": "步骤1：UBM制作与凸点电镀",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：芯片减薄与背面处理",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：回流焊与倒装键合",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：底部填充工艺",
+            "status": "in_progress"
+          },
+          {
+            "name": "步骤5：焊点可靠性检测",
+            "status": "not_started"
+          }
+        ]
+      },
+      {
+        "name": "晶圆级封装生产实习",
+        "steps": [
+          {
+            "name": "步骤1：晶圆表面清洗",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：绝缘层与种子层制作",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：重新布线层制作",
+            "status": "incomplete"
+          },
+          {
+            "name": "步骤4：凸点电镀与成形",
+            "status": "not_started"
+          }
+        ]
+      },
+      {
+        "name": "2.5D与3D封装生产实习",
+        "steps": [
+          {
+            "name": "步骤1：TSV技术学习",
+            "status": "incomplete"
+          },
+          {
+            "name": "步骤2：中介层工艺与微凸点制作",
+            "status": "incomplete"
+          },
+          {
+            "name": "步骤3：芯片堆叠与互连",
+            "status": "not_started"
+          },
+          {
+            "name": "步骤4：3D封装键合设备操作",
+            "status": "not_started"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "question": "引线键合的主要作用是（ ）。",
+        "option": [
+          "A、通过金属引线连接芯片焊盘与封装引脚，实现电气连接",
+          "B、对芯片进行冷却降温",
+          "C、切割晶圆",
+          "D、检测芯片外观缺陷"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "UBM（凸点下金属层）的主要作用是（ ）。",
+        "option": [
+          "A、改善芯片焊盘与凸点之间的连接",
+          "B、检测芯片外观缺陷",
+          "C、切割晶圆",
+          "D、测试芯片功耗"
+        ],
+        "answer": "B",
+        "correct_answer": "A"
+      },
+      {
+        "question": "倒装芯片互连时，芯片与基板的连接方式是（ ）。",
+        "option": [
+          "A、芯片有源面朝上以引线连接",
+          "B、芯片有源面朝下与基板互连",
+          "C、仅通过封装外壳接触",
+          "D、芯片背面与基板焊接"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "TSV技术主要用于实现（ ）。",
+        "option": [
+          "A、晶圆表面清洗",
+          "B、芯片外观检测",
+          "C、硅片内部的垂直电气互连",
+          "D、晶圆划片"
+        ],
+        "answer": "C",
+        "correct_answer": "C"
+      },
+      {
+        "question": "2.5D封装通常采用什么方式实现多个芯片的高密度互连（ ）。",
+        "option": [
+          "A、仅通过外部引线连接",
+          "B、仅依靠芯片表面涂层",
+          "C、借助中介层等结构实现互连",
+          "D、取消芯片之间的电气连接"
+        ],
+        "answer": "",
+        "correct_answer": "C"
+      },
+      {
+        "question": "重新布线层（RDL）的主要作用是（ ）。",
+        "option": [
+          "A、将芯片焊盘连接到新的位置以适配后续互连结构",
+          "B、为芯片提供散热通道",
+          "C、切割晶圆",
+          "D、检测焊点强度"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "晶圆级封装通常在哪一层面上完成部分或全部封装相关工艺（ ）。",
+        "option": [
+          "A、晶圆层面",
+          "B、单颗芯片层面",
+          "C、整机层面",
+          "D、电路板层面"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "芯片堆叠中互连密度最高的封装形式是（ ）。",
+        "option": [
+          "A、2.5D封装",
+          "B、3D封装",
+          "C、单芯片封装",
+          "D、leadframe封装"
+        ],
+        "answer": null,
+        "correct_answer": "B"
+      },
+      {
+        "question": "晶圆测试的主要目的是（ ）。",
+        "option": [
+          "A、提升芯片运行速度",
+          "B、为芯片增加散热结构",
+          "C、检测晶圆上芯片的电气性能并识别不合格芯片",
+          "D、完成芯片的最终封装"
+        ],
+        "answer": "C",
+        "correct_answer": "C"
+      },
+      {
+        "question": "凸点电镀在倒装互连中的作用是（ ）。",
+        "option": [
+          "A、形成金属凸点结构",
+          "B、清洗晶圆表面",
+          "C、切割晶圆",
+          "D、检测芯片功耗"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "倒装芯片互连相关的工艺环节包括（ ）。",
+        "option": [
+          "A、表面处理",
+          "B、凸点制作",
+          "C、回流焊与倒装键合",
+          "D、晶圆划片"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "晶圆级封装可能涉及的工艺包括（ ）。",
+        "option": [
+          "A、清洗、沉积、光刻、刻蚀",
+          "B、电镀",
+          "C、重新布线",
+          "D、整机装配"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "常用于2.5D或3D高密度互连的技术包括（ ）。",
+        "option": [
+          "A、TSV（硅通孔）",
+          "B、中介层结构",
+          "C、微凸点与垂直堆叠",
+          "D、引线框架封装"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于晶圆测试，下列说法正确的是（ ）。",
+        "option": [
+          "A、通过探针等方式检测芯片电气性能",
+          "B、识别不符合要求的芯片",
+          "C、为后续封装和质量控制提供依据",
+          "D、等同于芯片的最终封装"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于集成电路封装的基本概念，下列说法正确的是（ ）。",
+        "option": [
+          "A、包括零级、一级封装及先进封装",
+          "B、封装用于实现电气互连并起保护作用",
+          "C、不同封装技术适用于不同应用场景",
+          "D、封装会降低芯片的集成度"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于引线键合与倒装芯片的对比，下列说法正确的是（ ）。",
+        "option": [
+          "A、引线键合通过金属引线实现连接",
+          "B、倒装芯片将芯片有源面朝下与基板互连",
+          "C、倒装互连常配合底部填充工艺",
+          "D、两者互连方式完全相同"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于UBM与凸点，下列说法正确的是（ ）。",
+        "option": [
+          "A、UBM用于改善芯片焊盘与凸点之间的连接",
+          "B、凸点电镀用于形成金属凸点结构",
+          "C、凸点互连是倒装芯片的关键环节",
+          "D、UBM的作用是切割晶圆"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "重新布线层（RDL）相关说法正确的有（ ）。",
+        "option": [
+          "A、通过重新布线将芯片焊盘连接到新的位置",
+          "B、用于适配后续互连结构和封装布局",
+          "C、属于晶圆级封装常见工艺",
+          "D、RDL用于芯片内部逻辑运算"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "封装技术对芯片性能的影响体现在（ ）。",
+        "option": [
+          "A、电气互连",
+          "B、集成度",
+          "C、整体性能",
+          "D、芯片制造光刻精度"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "本实践包含的任务环节有（ ）。",
+        "option": [
+          "A、认知实习与倒装芯片生产实习",
+          "B、晶圆级封装生产实习",
+          "C、2.5D与3D封装生产实习及晶圆测试",
+          "D、整机产品组装实习"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      }
+    ]
+  }
+}
