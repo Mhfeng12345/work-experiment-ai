@@ -1,0 +1,340 @@
+{
+  "experiment_data": {
+    "experiment_name": "电机与拖动知识构建及数字孪生展示系统",
+    "tasks": [
+      {
+        "name": "直流电机实验—串电阻启动实验",
+        "steps": [
+          {
+            "name": "步骤1：选择电枢回路串电阻启动实验，确认他励方式",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：将启动电阻旋钮调至Rc档并投入启动电阻",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：励磁电压调至220V并投入",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：电枢电压预调至220V",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：投入电枢电源，逐级切除三级启动电阻并记录启动数据",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：停机断电，先电枢后励磁",
+            "status": "completed"
+          },
+          {
+            "name": "步骤7：查看采集数据、生成三张曲线并点击实验完成",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "name": "变压器实验—短路实验",
+        "steps": [
+          {
+            "name": "步骤1：将变压器低压侧a-b、b-c短路",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：电箱L1、L2、L3连接调压器输入A、B、C",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：调压器输出a、b、c连接测试仪入IA、入IB、入IC",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：测试仪出IA、出IB、出IC连接变压器高压侧A、B、C电流夹点",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：测试仪UA、UB、UC连接变压器高压侧A、B、C电压夹点",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：先开电箱三极开关，再开测试仪",
+            "status": "completed"
+          },
+          {
+            "name": "步骤7：调节调压器升压至IK=0.44A",
+            "status": "completed"
+          },
+          {
+            "name": "步骤8：逐次降压，记录六组严格递减数据并生成曲线",
+            "status": "completed"
+          },
+          {
+            "name": "步骤9：将UK归零，先关闭测试仪，再关闭电箱三极开关",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "name": "异步电机实验—堵转实验",
+        "steps": [
+          {
+            "name": "步骤1：连接三极空开到调压器",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：调压器接入多功能表",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：多功能表接入电机接线盒",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：确认接线并上电",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：升压至堵转电流",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：降压并采集六组数据",
+            "status": "completed"
+          },
+          {
+            "name": "步骤7：降压断电",
+            "status": "completed"
+          },
+          {
+            "name": "步骤8：根据数据表格绘制Pk=f(Uk)、Uk=f(Ik)曲线",
+            "status": "completed"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "question": "油浸式变压器的铁芯主要起什么作用？",
+        "option": [
+          "A、导磁，构成主磁路，传递磁通",
+          "B、导电，输送一次电流",
+          "C、散热降温",
+          "D、储存变压器油"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "当变压器内部发生故障产生气体时，发出报警或跳闸信号的保护装置是（ ）。",
+        "option": [
+          "A、吸湿器",
+          "B、瓦斯继电器",
+          "C、调压控制箱",
+          "D、散热器"
+        ],
+        "answer": "C",
+        "correct_answer": "B"
+      },
+      {
+        "question": "变压器铁芯通常采用（ ）材料叠装而成，以减少涡流损耗。",
+        "option": [
+          "A、纯铜",
+          "B、铸铁",
+          "C、铝",
+          "D、硅钢片"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "直流电机中建立主磁场的部件是（ ）。",
+        "option": [
+          "A、换向器",
+          "B、主磁极（含励磁绕组）",
+          "C、电刷",
+          "D、电枢绕组"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "直流电机换向器（整流子）的主要作用是（ ）。",
+        "option": [
+          "A、建立主磁场",
+          "B、支撑电枢",
+          "C、冷却",
+          "D、机械整流，使电枢绕组中的交流感应电动势转换为电刷端的直流电"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "直流电机的励磁绕组与电枢绕组并联连接的方式称为（ ）。",
+        "option": [
+          "A、串励",
+          "B、复励",
+          "C、并励",
+          "D、他励"
+        ],
+        "answer": "C",
+        "correct_answer": "C"
+      },
+      {
+        "question": "三相异步电动机中，接入三相电源产生旋转磁场的部件是（ ）。",
+        "option": [
+          "A、转子绕组",
+          "B、接线盒",
+          "C、定子绕组",
+          "D、风扇"
+        ],
+        "answer": "C",
+        "correct_answer": "C"
+      },
+      {
+        "question": "三相异步电动机正常运行时，转子转速（ ）同步转速。",
+        "option": [
+          "A、略高于",
+          "B、略低于",
+          "C、等于",
+          "D、远高于"
+        ],
+        "answer": "A",
+        "correct_answer": "B"
+      },
+      {
+        "question": "同步电机转子上的励磁绕组通入（ ）以建立转子磁场。",
+        "option": [
+          "A、三相交流电",
+          "B、直流电",
+          "C、单相交流电",
+          "D、脉冲电"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "同步电动机正常运行时转速与（ ）严格同步。",
+        "option": [
+          "A、负载转矩",
+          "B、励磁电压",
+          "C、旋转磁场转速",
+          "D、电源电压幅值"
+        ],
+        "answer": "",
+        "correct_answer": "C"
+      },
+      {
+        "question": "油浸式电力变压器的主要组成部分包括（ ）。",
+        "option": [
+          "A、铁芯",
+          "B、绕组（高压、低压）",
+          "C、油箱及附件（油枕、散热器等）",
+          "D、换向器"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "变压器中用于绝缘和隔离的部件有（ ）。",
+        "option": [
+          "A、高压绝缘纸",
+          "B、低压绝缘筒",
+          "C、散热器",
+          "D、高压套管、低压套管"
+        ],
+        "answer": "AB",
+        "correct_answer": "ABD"
+      },
+      {
+        "question": "变压器高压绕组与低压绕组相比，一般具有的特点（ ）。",
+        "option": [
+          "A、匝数少电流大",
+          "B、电压高、匝数多",
+          "C、电流相对较小",
+          "D、绝缘要求高"
+        ],
+        "answer": "ABCD",
+        "correct_answer": "BCD"
+      },
+      {
+        "question": "直流电机的定子部分包括（ ）。",
+        "option": [
+          "A、机座",
+          "B、主磁极及励磁绕组",
+          "C、换向极",
+          "D、电枢绕组"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "直流电机电刷的作用包括（ ）。",
+        "option": [
+          "A、与换向器滑动接触",
+          "B、引出或引入电枢电流",
+          "C、与外部电路相连",
+          "D、建立主磁场"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "直流电动机的起动转矩产生条件包括（ ）。",
+        "option": [
+          "A、励磁绕组通直流建立主磁场",
+          "B、需要交流电源",
+          "C、电枢绕组通入电流",
+          "D、载流导体在磁场中受力形成电磁转矩"
+        ],
+        "answer": "ABD",
+        "correct_answer": "ACD"
+      },
+      {
+        "question": "三相异步电动机的定子部分包括（ ）。",
+        "option": [
+          "A、定子铁芯",
+          "B、定子绕组",
+          "C、机座",
+          "D、转子"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "三相异步电动机的工作原理要点包括（ ）。",
+        "option": [
+          "A、定子绕组通三相对称电流产生旋转磁场",
+          "B、转子与磁场同步转动",
+          "C、转子绕组切割旋转磁场产生感应电流",
+          "D、转子感应电流与磁场作用产生电磁转矩"
+        ],
+        "answer": "",
+        "correct_answer": "ACD"
+      },
+      {
+        "question": "同步电机的定子部分包括（ ）。",
+        "option": [
+          "A、定子铁芯",
+          "B、定子绕组（电枢绕组）",
+          "C、机座",
+          "D、励磁绕组"
+        ],
+        "answer": null,
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "同步电机阻尼绕组的作用包括（ ）。",
+        "option": [
+          "A、建立主磁场",
+          "B、阻尼振荡",
+          "C、改善动态稳定性",
+          "D、凸极机作启动辅助（异步启动）"
+        ],
+        "answer": "BCD",
+        "correct_answer": "BCD"
+      }
+    ]
+  }
+}
