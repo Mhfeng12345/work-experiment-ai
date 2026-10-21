@@ -11,7 +11,7 @@ from vector_db.knowledge_store import (
     import_all,
     import_markdown,
     list_documents,
-    list_experiment_names,
+    list_experiment_keys,
     list_sources,
     search_knowledge,
 )
@@ -37,10 +37,10 @@ def cmd_list(args):
     show_sources = args.sources or not args.experiments
 
     if show_experiments:
-        names = list_experiment_names()
-        print(f"实验（{len(names)}）：")
-        for name in names:
-            print(f"  - {name}")
+        keys = list_experiment_keys()
+        print(f"实验（{len(keys)}）：")
+        for key in keys:
+            print(f"  - {key}")
 
     if show_sources:
         sources = list_sources()
@@ -55,7 +55,7 @@ def cmd_search(args):
     try:
         results = search_knowledge(
             question=args.question,
-            experiment_name=args.experiment,
+            experiment_key=args.experiment,
             k=args.k,
         )
     except ValueError as e:
@@ -73,7 +73,7 @@ def cmd_search(args):
 
 def cmd_show(args):
     docs = list_documents(
-        experiment_name=args.experiment,
+        experiment_key=args.experiment,
         source=args.source,
         limit=args.limit,
     )
@@ -97,7 +97,7 @@ def cmd_delete(args):
         do_delete = lambda: delete_source(args.source)
     elif args.experiment:
         label = f"实验 {args.experiment}"
-        docs = list_documents(experiment_name=args.experiment)
+        docs = list_documents(experiment_key=args.experiment)
         do_delete = lambda: delete_experiment(args.experiment)
     else:
         label = f"id {args.id}"
@@ -142,20 +142,20 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--file", help="只导入指定的 Markdown 文件")
     p.set_defaults(func=cmd_import)
 
-    p = subparsers.add_parser("list", help="列出实验名与来源文件")
+    p = subparsers.add_parser("list", help="列出实验简称与来源文件")
     p.add_argument("--experiments", action="store_true", help="只列实验")
     p.add_argument("--sources", action="store_true", help="只列来源文件")
     p.set_defaults(func=cmd_list)
 
     p = subparsers.add_parser("search", help="语义检索")
-    p.add_argument("--experiment", required=True, help="实验名称")
+    p.add_argument("--experiment", required=True, help="实验简称")
     p.add_argument("--question", required=True, help="检索问题")
     p.add_argument("--k", type=int, default=3, help="返回条数，默认 3")
     p.set_defaults(func=cmd_search)
 
-    p = subparsers.add_parser("show", help="按实验名/来源查看知识点")
+    p = subparsers.add_parser("show", help="按实验简称/来源查看知识点")
     group = p.add_mutually_exclusive_group(required=True)
-    group.add_argument("--experiment", help="实验名称")
+    group.add_argument("--experiment", help="实验简称")
     group.add_argument("--source", help="来源文件名")
     p.add_argument("--limit", type=int, default=None, help="最多显示条数")
     p.set_defaults(func=cmd_show)
@@ -163,7 +163,7 @@ def build_parser() -> argparse.ArgumentParser:
     p = subparsers.add_parser("delete", help="删除知识点（默认只预览）")
     group = p.add_mutually_exclusive_group(required=True)
     group.add_argument("--source", help="按来源文件名删除")
-    group.add_argument("--experiment", help="按实验名删除")
+    group.add_argument("--experiment", help="按实验简称删除")
     group.add_argument("--id", help="按知识点 id 删除")
     p.add_argument("--yes", action="store_true", help="确认执行删除")
     p.set_defaults(func=cmd_delete)

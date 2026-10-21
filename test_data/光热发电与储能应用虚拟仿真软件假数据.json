@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "光热发电与储能应用虚拟仿真软件",
+    "experiment_key": "风光热电储_光热",
     "tasks": [
       {
         "name": "塔式系统认知与搭建",

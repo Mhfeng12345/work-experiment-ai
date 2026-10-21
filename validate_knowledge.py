@@ -33,6 +33,7 @@ class FileReport:
         self.warnings: list[str] = []
         self.notes: list[str] = []
         self.point_count = 0
+        self.experiment_key = ""
         self.experiment_name = ""
 
     @property
@@ -42,7 +43,7 @@ class FileReport:
 
 def split_front_matter(text: str) -> tuple[dict, str]:
     """拆分 front matter 与正文，返回 (元数据, 正文)"""
-    metadata = {"experiment_name": "", "source": ""}
+    metadata = {"experiment_key": "", "experiment_name": "", "source": ""}
 
     if not text.startswith("---"):
         return metadata, text
@@ -138,8 +139,17 @@ def validate_file(path: Path) -> FileReport:
         return report
 
     metadata, body = split_front_matter(text)
+    experiment_key = metadata["experiment_key"]
     experiment_name = metadata["experiment_name"]
+    report.experiment_key = experiment_key
     report.experiment_name = experiment_name
+
+    if not experiment_key:
+        report.errors.append(
+            "缺少 experiment_key，导入时会抛出异常并中断整个导入流程"
+        )
+    elif experiment_key.startswith("请填写"):
+        report.errors.append("experiment_key 仍是模板占位文字，未替换")
 
     if not experiment_name:
         report.errors.append(
@@ -231,18 +241,18 @@ def main() -> int:
         for message in report.warnings:
             print(f"    ⚠ {message}")
 
-    name_index: dict[str, list[str]] = {}
+    key_index: dict[str, list[str]] = {}
 
     for report in reports:
-        if report.errors or not report.experiment_name:
+        if report.errors or not report.experiment_key:
             continue
 
-        name_index.setdefault(report.experiment_name, []).append(report.name)
+        key_index.setdefault(report.experiment_key, []).append(report.name)
 
-    duplicates = {k: v for k, v in name_index.items() if len(v) > 1}
+    duplicates = {k: v for k, v in key_index.items() if len(v) > 1}
 
-    for experiment_name, names in duplicates.items():
-        print(f"    ✗ experiment_name「{experiment_name}」在多个文件中重复：{names}")
+    for experiment_key, names in duplicates.items():
+        print(f"    ✗ experiment_key「{experiment_key}」在多个文件中重复：{names}")
 
     error_total = sum(len(r.errors) for r in reports) + sum(
         len(v) for v in duplicates.values()

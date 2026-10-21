@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "集成电路封装技术与虚拟仿真实践",
+    "experiment_key": "集成电路",
     "tasks": [
       {
         "name": "倒装芯片生产实习",

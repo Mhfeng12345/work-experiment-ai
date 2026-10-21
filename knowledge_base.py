@@ -651,21 +651,21 @@ KNOWLEDGE_EXP_09 = """
 
 # -------------------- 映射表（key 使用完整实验名称） --------------------
 EXPERIMENT_KNOWLEDGE_MAP = {
-    "集成电路封装技术与虚拟仿真实践": KNOWLEDGE_EXP_01,
-    "电机与拖动知识构建及数字孪生展示系统": KNOWLEDGE_EXP_02,
-    "电化学电池设计与储能应用虚仿实习软件": KNOWLEDGE_EXP_03,
-    "风光储多能互补虚拟仿真软件": KNOWLEDGE_EXP_04,
-    "光热发电与储能应用虚拟仿真软件": KNOWLEDGE_EXP_05,
-    "塔式太阳能光热发电与储能虚拟仿真软件": KNOWLEDGE_EXP_06,
-    "槽式太阳能光热发电与储能虚拟仿真软件": KNOWLEDGE_EXP_07,
-    "AI+氢燃料电池设计测试及无人机应用虚拟仿真系统": KNOWLEDGE_EXP_08,
-    "工业电器控制技术虚拟仿真实验平台":KNOWLEDGE_EXP_09
+    "集成电路": KNOWLEDGE_EXP_01,
+    "电机与拖动": KNOWLEDGE_EXP_02,
+    "电化学电池": KNOWLEDGE_EXP_03,
+    "风光热电储_风光": KNOWLEDGE_EXP_04,
+    "风光热电储_光热": KNOWLEDGE_EXP_05,
+    "风光热电储_塔式": KNOWLEDGE_EXP_06,
+    "风光热电储_槽式": KNOWLEDGE_EXP_07,
+    "氢燃料电池": KNOWLEDGE_EXP_08,
+    "工业电器": KNOWLEDGE_EXP_09,
 }
 
 
-def get_knowledge(exp_name: str) -> str:
-    knowledge = EXPERIMENT_KNOWLEDGE_MAP.get(exp_name)
+def get_knowledge(experiment_key: str) -> str:
+    knowledge = EXPERIMENT_KNOWLEDGE_MAP.get(experiment_key)
     if knowledge is None:
         supported = "、".join(EXPERIMENT_KNOWLEDGE_MAP.keys())
-        raise ValueError(f"未知实验: {exp_name}，当前支持: {supported}")
+        raise ValueError(f"未知实验简称: {experiment_key}，当前支持: {supported}")
     return knowledge

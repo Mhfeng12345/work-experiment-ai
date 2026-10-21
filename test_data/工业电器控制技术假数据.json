@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "工业电器控制技术虚拟仿真实验平台",
+    "experiment_key": "工业电器",
     "tasks": [
       {
         "name": "电机正反转控制",

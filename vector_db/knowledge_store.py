@@ -1,6 +1,5 @@
 
 import re
-import unicodedata
 from pathlib import Path
 
 from langchain_chroma import Chroma
@@ -53,6 +52,7 @@ def load_markdown(file_path: Path) -> list[Document]:
     text = file_path.read_text(encoding="utf-8")
 
     metadata = {
+        "experiment_key": "",
         "experiment_name": "",
         "source": file_path.name,
     }
@@ -69,6 +69,9 @@ def load_markdown(file_path: Path) -> list[Document]:
                     metadata[key.strip()] = value.strip().strip("'\"")
 
             text = parts[2]
+
+    if not metadata["experiment_key"]:
+        raise ValueError(f"缺少 experiment_key：{file_path.name}")
 
     if not metadata["experiment_name"]:
         raise ValueError(f"缺少 experiment_name：{file_path.name}")
@@ -174,45 +177,25 @@ def warmup() -> int:
     return db._collection.count()
 
 
-# -------------------- 实验名归一化 --------------------
+# -------------------- 实验简称匹配 --------------------
 
-# 常见不一致：全角/半角括号混用、首尾空白、BOM、零宽字符
-_ZERO_WIDTH = ("\ufeff", "\u200b", "\u200c", "\u200d", "\xa0")
-
-
-def normalize_experiment_name(name: str) -> str:
-    """将实验名归一化，用于容错匹配（全角半角括号、空白、零宽字符差异）"""
-    name = unicodedata.normalize("NFC", name)
-
-    for ch in _ZERO_WIDTH:
-        name = name.replace(ch, "")
-
-    name = "".join(name.split())
-    return name.replace("(", "（").replace(")", "）")
-
-
-def list_experiment_names() -> list[str]:
-    """读取向量库中实际存在的全部实验名"""
+def list_experiment_keys() -> list[str]:
+    """读取向量库中实际存在的全部实验简称"""
     metadatas = get_db()._collection.get(include=["metadatas"])["metadatas"]
 
-    names = {
-        (m or {}).get("experiment_name")
+    keys = {
+        (m or {}).get("experiment_key")
         for m in metadatas
-        if (m or {}).get("experiment_name")
+        if (m or {}).get("experiment_key")
     }
 
-    return sorted(names)
+    return sorted(keys)
 
 
-def resolve_experiment_name(name: str) -> str | None:
-    """归一化匹配实验名，返回库中真实存在的原始名称；未命中返回 None"""
-    target = normalize_experiment_name(name)
-
-    for stored in list_experiment_names():
-        if normalize_experiment_name(stored) == target:
-            return stored
-
-    return None
+def resolve_experiment_key(experiment_key: str) -> str | None:
+    """返回库中真实存在的实验简称；未命中返回 None"""
+    key = experiment_key.strip()
+    return key if key in list_experiment_keys() else None
 
 
 # -------------------- 知识库维护（查 / 删） --------------------
@@ -236,17 +219,15 @@ def list_sources() -> list[str]:
 
 
 def list_documents(
-    experiment_name: str | None = None,
+    experiment_key: str | None = None,
     source: str | None = None,
     limit: int | None = None,
 ) -> list[Document]:
-    """按实验名 / 来源筛选知识点；都不传则返回全部"""
+    """按实验简称 / 来源筛选知识点；都不传则返回全部"""
     where: dict = {}
 
-    if experiment_name:
-        where["experiment_name"] = (
-            resolve_experiment_name(experiment_name) or experiment_name
-        )
+    if experiment_key:
+        where["experiment_key"] = experiment_key
 
     if source:
         where["source"] = source
@@ -284,15 +265,15 @@ def delete_source(source: str) -> int:
     return len(ids)
 
 
-def delete_experiment(experiment_name: str) -> int:
+def delete_experiment(experiment_key: str) -> int:
     """删除指定实验的全部知识点，返回删除条数"""
-    resolved = resolve_experiment_name(experiment_name)
+    resolved = resolve_experiment_key(experiment_key)
 
     if resolved is None:
-        raise ValueError(f"未知实验: {experiment_name}")
+        raise ValueError(f"未知实验简称: {experiment_key}")
 
     db = get_db()
-    ids = db.get(where={"experiment_name": resolved}).get("ids") or []
+    ids = db.get(where={"experiment_key": resolved}).get("ids") or []
 
     if ids:
         db.delete(ids=ids)
@@ -315,19 +296,19 @@ def delete_document(doc_id: str) -> bool:
 
 def search_knowledge(
     question: str,
-    experiment_name: str | None = None,
+    experiment_key: str | None = None,
     k: int = 3,
 ) -> list[Document]:
     if k < 1:
         raise ValueError("k 必须大于等于 1")
 
-    if experiment_name:
-        resolved = resolve_experiment_name(experiment_name)
+    if experiment_key:
+        resolved = resolve_experiment_key(experiment_key)
 
         if resolved is None:
-            raise ValueError(f"未知实验: {experiment_name}")
+            raise ValueError(f"未知实验简称: {experiment_key}")
 
-        search_filter = {"experiment_name": resolved}
+        search_filter = {"experiment_key": resolved}
     else:
         search_filter = None
 

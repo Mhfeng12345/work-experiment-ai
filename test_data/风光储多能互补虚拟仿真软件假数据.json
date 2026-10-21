@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "风光储多能互补虚拟仿真软件",
+    "experiment_key": "风光热电储_风光",
     "tasks": [
       {
         "name": "风电设备认知与原理",
