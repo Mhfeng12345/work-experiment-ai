@@ -43,6 +43,3 @@ logs/
 *.safetensors
 models/
 model/
-
-# 向量库数据（本地生成，不入库）
-vector_db/chroma_db/
