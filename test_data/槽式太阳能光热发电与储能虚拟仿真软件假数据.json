@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "槽式太阳能光热发电与储能虚拟仿真软件",
+    "experiment_key": "风光热电储_槽式",
     "tasks": [
       {
         "name": "槽式设备认知",

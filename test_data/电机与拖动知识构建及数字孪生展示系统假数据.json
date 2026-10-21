@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "电机与拖动知识构建及数字孪生展示系统",
+    "experiment_key": "电机与拖动",
     "tasks": [
       {
         "name": "直流电机实验—串电阻启动实验",

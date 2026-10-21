@@ -16,7 +16,7 @@ from knowledge_base import get_knowledge, EXPERIMENT_KNOWLEDGE_MAP
 from prompts import EXPERIMENT_PROMPT, QA_PROMPT
 
 from vector_db.knowledge_store import (
-    list_experiment_names,
+    list_experiment_keys,
     search_knowledge,
     warmup,
 )
@@ -81,7 +81,7 @@ class QuestionData(BaseModel):
 
 
 class ExperimentData(BaseModel):
-    experiment_name: str
+    experiment_key: str
     tasks: list[TaskData] = Field(default_factory=list)
     questions: list[QuestionData] = Field(default_factory=list)
 
@@ -95,7 +95,7 @@ class ChatRequest(BaseModel):
 
 
 class ExperimentChatRequest(BaseModel):
-    experiment_name: str = Field(description="实验名称")
+    experiment_key: str = Field(description="实验简称")
     question: str = Field(min_length=1, description="用户的问题")
 
 
@@ -127,16 +127,16 @@ async def health():
 
 @app.get("/experiments")
 async def list_experiments():
-    """查看当前支持的实验"""
-    return {"supported": list(EXPERIMENT_KNOWLEDGE_MAP.keys())}
+    """查看当前支持的实验简称"""
+    return {"supported": await asyncio.to_thread(list_experiment_keys)}
 
 
 @app.post("/analyze")
 async def analyze(request: AnalyzeRequest):
-    exp_name = request.experiment_data.experiment_name
+    exp_key = request.experiment_data.experiment_key
 
     try:
-        knowledge = get_knowledge(exp_name)
+        knowledge = get_knowledge(exp_key)
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -153,7 +153,7 @@ async def analyze(request: AnalyzeRequest):
 
     return await stream_response(
         chain.astream(chain_input, stream_mode="messages"),
-        error_prefix=f"分析失败 [{exp_name}]",
+        error_prefix=f"分析失败 [{exp_key}]",
     )
 
 
@@ -168,14 +168,14 @@ async def chat(request: ChatRequest):
 @app.post("/knowledgeDBChat")
 async def experiment_chat(request: ExperimentChatRequest):
     """基于指定实验知识库的 RAG 问答"""
-    exp_name = request.experiment_name
+    exp_key = request.experiment_key
 
     try:
         docs = await asyncio.to_thread(
-            search_knowledge, request.question, experiment_name=exp_name, k=4
+            search_knowledge, request.question, experiment_key=exp_key, k=4
         )
     except ValueError as e:
-        supported = "、".join(list_experiment_names())
+        supported = "、".join(await asyncio.to_thread(list_experiment_keys))
         raise HTTPException(
             status_code=400,
             detail=f"{e}，当前支持: {supported}",
@@ -184,7 +184,7 @@ async def experiment_chat(request: ExperimentChatRequest):
     if not docs:
         raise HTTPException(
             status_code=404,
-            detail=f"未检索到实验「{exp_name}」的相关知识",
+            detail=f"未检索到实验「{exp_key}」的相关知识",
         )
 
     context = "\n\n".join(doc.page_content for doc in docs)
@@ -194,7 +194,7 @@ async def experiment_chat(request: ExperimentChatRequest):
             {"context": context, "question": request.question},
             stream_mode="messages",
         ),
-        error_prefix=f"知识问答失败 [{exp_name}]",
+        error_prefix=f"知识问答失败 [{exp_key}]",
     )
 
 

@@ -1,4 +1,5 @@
 ---  
+experiment_key: 氢燃料电池
 experiment_name: AI+氢燃料电池设计测试及无人机应用虚拟仿真系统  
 source: AI+氢燃料电池设计测试及无人机应用虚拟仿真系统.md  
 ---

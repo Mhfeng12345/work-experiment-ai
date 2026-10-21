@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "电化学电池设计与储能应用虚仿实习软件",
+    "experiment_key": "电化学电池",
     "tasks": [
       {
         "name": "电池设计生产实习",

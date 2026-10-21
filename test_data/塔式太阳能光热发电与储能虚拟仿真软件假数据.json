@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_name": "塔式太阳能光热发电与储能虚拟仿真软件",
+    "experiment_key": "风光热电储_塔式",
     "tasks": [
       {
         "name": "塔式设备认知",
