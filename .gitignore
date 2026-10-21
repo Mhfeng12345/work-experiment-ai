@@ -43,3 +43,6 @@ logs/
 *.safetensors
 models/
 model/
+
+# Chroma HNSW 索引文件需要随数据库一起入库
+!vector_db/chroma_db/**/*.bin
