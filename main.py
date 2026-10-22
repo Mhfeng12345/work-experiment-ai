@@ -51,10 +51,10 @@ app.add_middleware(
 llm = ChatOpenAI(
     model=os.getenv("LLM_MODEL", "qwen/qwen3.5-9b"),
     base_url=os.getenv("LLM_BASE_URL", "http://127.0.0.1:19874/v1"),
-    api_key="not-needed",
+    api_key=os.getenv("LLM_API_KEY", "not-needed"),
     temperature=0.2,
-    max_tokens=2048,
-    stream_usage=True,
+    max_tokens=int(os.getenv("LLM_MAX_TOKENS", "2048")),
+    stream_usage=True
 )
 
 chain = EXPERIMENT_PROMPT | llm
@@ -243,7 +243,7 @@ async def experiment_chat(request: ExperimentChatRequest):
             {"context": context, "question": request.question},
             stream_mode="messages",
         ),
-        error_prefix=f"知识问答失败 [{exp_key}]",
+        error_prefix=f"知识问答失败",
         scenario=SCENARIOS["knowledgeDBChat"],
     )
 
