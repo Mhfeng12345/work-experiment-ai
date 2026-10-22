@@ -26,6 +26,18 @@ load_dotenv()
 APP_HOST = os.getenv("APP_HOST", "0.0.0.0")
 APP_PORT = int(os.getenv("APP_PORT", "18741"))
 
+# AI 使用上报元数据（发给 Unity 的 ai_data 来源）
+AI_MODEL_NAME = os.getenv("AI_MODEL_NAME") or os.getenv("LLM_MODEL", "qwen3.5-4b")
+AI_MODEL_VERSION = os.getenv("AI_MODEL_VERSION", "4B-Q4_K_M")
+AI_MODEL_DEPLOYMENT = os.getenv("AI_MODEL_DEPLOYMENT", "本地运行")
+AI_MODEL_PROVIDER = os.getenv("AI_MODEL_PROVIDER", "XXX大学")
+
+# 端点 → AI 使用场景（单一事实源：改场景词/加端点只动这里）
+SCENARIOS = {
+    "knowledgeDBChat": "知识问答",
+    "analyze": "实验分析",
+}
+
 app = FastAPI(title="Experiment AI API")
 
 app.add_middleware(
@@ -42,6 +54,7 @@ llm = ChatOpenAI(
     api_key="not-needed",
     temperature=0.2,
     max_tokens=2048,
+    stream_usage=True,
 )
 
 chain = EXPERIMENT_PROMPT | llm
@@ -100,20 +113,55 @@ class ExperimentChatRequest(BaseModel):
 
 
 # -------------------- 公共流式输出 --------------------
-async def stream_response(generator, error_prefix: str = "请求失败"):
-    """统一流式输出封装"""
+def build_usage_sse(scenario, in_tok=0, out_tok=0, out_chars=0):
+    """把本次调用的 token 与模型元数据封装成发给 Unity 的 usage 事件"""
+    estimated = not (in_tok or out_tok)
+    if estimated:
+        out_tok = max(1, round(out_chars / 1.6))
+    payload = {
+        "type": "usage",
+        "usage": {
+            "input_tokens": in_tok,
+            "output_tokens": out_tok,
+            "model": AI_MODEL_NAME,
+            "version": AI_MODEL_VERSION,
+            "deployment": AI_MODEL_DEPLOYMENT,
+            "provider": AI_MODEL_PROVIDER,
+            "scenario": scenario,
+            "call_count": 1,
+            "estimated": estimated,
+        },
+    }
+    return f"data: {json.dumps(payload, ensure_ascii=False)}\n\n"
+
+
+async def stream_response(generator, error_prefix: str = "请求失败", scenario: str = ""):
+    """统一流式输出封装：内容流 + 正常结束前上报 usage"""
 
     async def event_stream():
+        in_tok = 0
+        out_tok = 0
+        out_chars = 0
+        ok = False
         try:
             async for chunk in generator:
-                if not chunk.content:
+                usage = getattr(chunk, "usage_metadata", None)
+                if usage:
+                    in_tok = int(usage.get("input_tokens") or in_tok)
+                    out_tok = int(usage.get("output_tokens") or out_tok)
+                content = getattr(chunk, "content", None)
+                if not content:
                     continue
-                delta = {"choices": [{"delta": {"content": chunk.content}}]}
+                out_chars += len(content)
+                delta = {"choices": [{"delta": {"content": content}}]}
                 yield f"data: {json.dumps(delta, ensure_ascii=False)}\n\n"
+            ok = True
         except Exception as e:
             print(f"{error_prefix}: {e}")
             delta = {"choices": [{"delta": {"content": f"\n\n> {error_prefix}：{e}"}}]}
             yield f"data: {json.dumps(delta, ensure_ascii=False)}\n\n"
+        if ok and scenario:
+            yield build_usage_sse(scenario, in_tok, out_tok, out_chars)
         yield "data: [DONE]\n\n"
 
     return StreamingResponse(event_stream(), media_type="text/event-stream")
@@ -154,6 +202,7 @@ async def analyze(request: AnalyzeRequest):
     return await stream_response(
         chain.astream(chain_input, stream_mode="messages"),
         error_prefix=f"分析失败 [{exp_key}]",
+        scenario=SCENARIOS["analyze"],
     )
 
 
@@ -195,6 +244,7 @@ async def experiment_chat(request: ExperimentChatRequest):
             stream_mode="messages",
         ),
         error_prefix=f"知识问答失败 [{exp_key}]",
+        scenario=SCENARIOS["knowledgeDBChat"],
     )
 
 
