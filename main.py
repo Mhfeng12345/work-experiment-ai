@@ -54,7 +54,8 @@ llm = ChatOpenAI(
     api_key=os.getenv("LLM_API_KEY", "not-needed"),
     temperature=0.2,
     max_tokens=int(os.getenv("LLM_MAX_TOKENS", "2048")),
-    stream_usage=True
+    stream_usage=True,
+    extra_body=json.loads(os.getenv("LLM_REASONING_BODY") or "{}"),
 )
 
 chain = EXPERIMENT_PROMPT | llm
@@ -149,6 +150,8 @@ async def stream_response(generator, error_prefix: str = "请求失败", scenari
                 if usage:
                     in_tok = int(usage.get("input_tokens") or in_tok)
                     out_tok = int(usage.get("output_tokens") or out_tok)
+                    if (usage.get("output_token_details") or {}).get("reasoning"):
+                        print("[reasoning] 仍有思考输出，检查 LLM_REASONING_BODY")
                 content = getattr(chunk, "content", None)
                 if not content:
                     continue
