@@ -1,0 +1,237 @@
+{
+  "experiment_data": {
+    "experiment_key": "工业电器_电梯组合机床配料小车",
+    "tasks": [
+      {
+        "name": "电梯控制",
+        "steps": [
+          {
+            "name": "步骤1：实验认知—学习电梯调度、选层、呼梯、开关门与方向调度逻辑",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：实验选择—选择“电梯控制”场景",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：PLC通讯配置—对照轿内选层、厅外呼梯按钮与楼层信号I/O分配表定义变量",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：电气接线—完成呼梯按钮、楼层传感器与开关门输出回路接线并提交检查",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：PLC编程与下载—编写同向优先、反向等待、到站自动开门与延时关门程序",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：实验现象验证—运行观察呼梯响应、方向选择与开关门动作",
+            "status": "completed"
+          },
+          {
+            "name": "步骤7：学习超载保护与门联锁逻辑",
+            "status": "in_progress"
+          },
+          {
+            "name": "步骤8：提交报告",
+            "status": "not_started"
+          }
+        ]
+      },
+      {
+        "name": "组合机床的电气控制系统",
+        "steps": [
+          {
+            "name": "步骤1：实验认知—学习顺序控制思想与工序触发条件",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：实验选择—选择“组合机床的电气控制系统”场景",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：PLC通讯配置—对照位置开关与夹紧信号I/O分配表定义变量",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：电气接线—完成夹紧、进给、切削电机与位置开关接线并提交检查",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：PLC编程与下载—编写夹紧→快进→工进→快退→松开的顺序控制程序",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：实验现象验证—运行验证工序顺序与联锁逻辑",
+            "status": "completed"
+          },
+          {
+            "name": "步骤7：提交报告",
+            "status": "completed"
+          }
+        ]
+      },
+      {
+        "name": "自动配料装车系统控制",
+        "steps": [
+          {
+            "name": "步骤1：实验认知—学习称重传感器采集与顺序流程逻辑",
+            "status": "completed"
+          },
+          {
+            "name": "步骤2：实验选择—选择“自动配料装车系统控制”场景",
+            "status": "completed"
+          },
+          {
+            "name": "步骤3：PLC通讯配置—对照称重传感器与给料机构I/O分配表定义变量",
+            "status": "completed"
+          },
+          {
+            "name": "步骤4：电气接线—完成称重传感器、给料机、卸料门与栏杆接线并提交检查",
+            "status": "completed"
+          },
+          {
+            "name": "步骤5：PLC编程与下载—编写配方配比、到达值判断与急停保护程序",
+            "status": "completed"
+          },
+          {
+            "name": "步骤6：PLC编程—实现超差报警与栏杆联锁逻辑",
+            "status": "not_started"
+          },
+          {
+            "name": "步骤7：实验现象验证—运行验证配料、装车、栏杆动作与急停",
+            "status": "not_started"
+          },
+          {
+            "name": "步骤8：提交报告",
+            "status": "not_started"
+          }
+        ]
+      }
+    ],
+    "questions": [
+      {
+        "question": "西门子 S7-1200 PLC 的硬件组成部分不包括（ ）。",
+        "option": [
+          "A、CPU（中央处理器）",
+          "B、存储器",
+          "C、I/O 模块与电源模块",
+          "D、换向器"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "平台默认的 PLC 通讯参数中，IP 地址、机架号（Rack）、槽号（Slot）分别是（ ）。",
+        "option": [
+          "A、192.168.0.1、0、1",
+          "B、192.168.1.1、1、0",
+          "C、127.0.0.1、0、0",
+          "D、192.168.0.100、1、1"
+        ],
+        "answer": "A",
+        "correct_answer": "A"
+      },
+      {
+        "question": "PLC 循环扫描的工作机制按顺序依次为（ ）。",
+        "option": [
+          "A、程序执行→输入采样→输出刷新",
+          "B、输入采样→程序执行→输出刷新",
+          "C、输出刷新→输入采样→程序执行",
+          "D、输入采样→输出刷新→程序执行"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "继电器在自动化回路中的作用不包括（ ）。",
+        "option": [
+          "A、信号放大",
+          "B、电路隔离",
+          "C、多点控制",
+          "D、建立主磁通"
+        ],
+        "answer": "D",
+        "correct_answer": "D"
+      },
+      {
+        "question": "组合机床电气控制系统属于典型的（ ）。",
+        "option": [
+          "A、模拟量闭环控制",
+          "B、顺序控制",
+          "C、PID 控制",
+          "D、变频调速控制"
+        ],
+        "answer": "B",
+        "correct_answer": "B"
+      },
+      {
+        "question": "PLC 的用户程序可采用以下哪些语言编写（ ）。",
+        "option": [
+          "A、梯形图（LAD）",
+          "B、功能块图（FBD）",
+          "C、结构化控制语言（SCL）",
+          "D、汇编语言"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "关于平台 PLC 的 I/O 地址分配，下列说法正确的是（ ）。",
+        "option": [
+          "A、按钮、传感器等输入信号对应 I 区",
+          "B、电机、指示灯等输出信号对应 Q 区",
+          "C、地址必须与 TIA 博途硬件组态一致",
+          "D、输入与输出共用同一地址"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "下列属于顺序控制类实验的有（ ）。",
+        "option": [
+          "A、液体混合",
+          "B、自动洗衣机控制",
+          "C、组合机床的电气控制系统",
+          "D、数码管控制"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "下列实验涉及模拟量采集或输出的有（ ）。",
+        "option": [
+          "A、温度 PID 控制",
+          "B、自动配料装车系统控制（称重）",
+          "C、音乐喷泉控制（水柱高度）",
+          "D、流水灯控制"
+        ],
+        "answer": "ABC",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "TIA 博途无法连接虚拟 PLC 时，应排查的内容有（ ）。",
+        "option": [
+          "A、PLC 型号是否与仿真平台一致",
+          "B、IP 地址、机架号、槽号是否一致",
+          "C、防火墙是否拦截通讯",
+          "D、显示器分辨率是否匹配"
+        ],
+        "answer": "",
+        "correct_answer": "ABC"
+      },
+      {
+        "question": "接线提交检查不通过时，应重点检查的问题有（ ）。",
+        "option": [
+          "A、是否存在漏接、虚接",
+          "B、端子是否错接",
+          "C、互锁触点、公共端、电源端是否接反",
+          "D、是否已下载程序"
+        ],
+        "answer": null,
+        "correct_answer": "ABC"
+      }
+    ]
+  }
+}

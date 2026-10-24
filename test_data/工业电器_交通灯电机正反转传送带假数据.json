@@ -1,6 +1,6 @@
 {
   "experiment_data": {
-    "experiment_key": "工业电器",
+    "experiment_key": "工业电器_交通灯电机正反转传送带",
     "tasks": [
       {
         "name": "电机正反转控制",
@@ -178,17 +178,6 @@
         "correct_answer": "B"
       },
       {
-        "question": "水塔水位控制中，为防止水泵在临界水位频繁启停而加入的机制是（ ）。",
-        "option": [
-          "A、自锁",
-          "B、互锁",
-          "C、滞回（上下限差）",
-          "D、动态扫描"
-        ],
-        "answer": "A",
-        "correct_answer": "C"
-      },
-      {
         "question": "继电器在自动化回路中的作用不包括（ ）。",
         "option": [
           "A、信号放大",
@@ -208,17 +197,6 @@
           "D、改变机架号"
         ],
         "answer": "",
-        "correct_answer": "B"
-      },
-      {
-        "question": "组合机床电气控制系统属于典型的（ ）。",
-        "option": [
-          "A、模拟量闭环控制",
-          "B、顺序控制",
-          "C、PID 控制",
-          "D、变频调速控制"
-        ],
-        "answer": null,
         "correct_answer": "B"
       },
       {
@@ -272,28 +250,6 @@
           "B、两个方向的绿灯必须互斥",
           "C、黄灯用于变灯前的过渡提示",
           "D、两个方向可同时放行"
-        ],
-        "answer": "ABC",
-        "correct_answer": "ABC"
-      },
-      {
-        "question": "下列属于顺序控制类实验的有（ ）。",
-        "option": [
-          "A、液体混合",
-          "B、自动洗衣机控制",
-          "C、组合机床的电气控制系统",
-          "D、数码管控制"
-        ],
-        "answer": "AB",
-        "correct_answer": "ABC"
-      },
-      {
-        "question": "下列实验涉及模拟量采集或输出的有（ ）。",
-        "option": [
-          "A、温度 PID 控制",
-          "B、自动配料装车系统控制（称重）",
-          "C、音乐喷泉控制（水柱高度）",
-          "D、流水灯控制"
         ],
         "answer": "ABC",
         "correct_answer": "ABC"
