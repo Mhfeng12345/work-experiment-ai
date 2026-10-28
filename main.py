@@ -113,6 +113,45 @@ class ExperimentChatRequest(BaseModel):
     question: str = Field(min_length=1, description="用户的问题")
 
 
+# -------------------- 答题统计 --------------------
+def _norm(ans: str | None) -> str:
+    if not ans:
+        return ""
+    return "".join(sorted(c.upper() for c in ans if c.isalpha()))
+
+
+def calc_quiz_stats(questions: list[QuestionData]) -> dict:
+    total = len(questions)
+    correct = wrong = unanswered = cannot_judge = 0
+    wrong_qs = []
+
+    for q in questions:
+        stu, std = _norm(q.answer), _norm(q.correct_answer)
+        if not stu:
+            unanswered += 1
+        elif not std:
+            cannot_judge += 1
+        elif stu == std:
+            correct += 1
+        else:
+            wrong += 1
+            wrong_qs.append(f"题：{q.question} | 答：{q.answer} | 正确：{q.correct_answer}")
+
+    rate = f"{round(correct / (correct + wrong) * 100, 1)}%" if (correct + wrong) else "无法计算"
+
+    return {
+        "quiz_text": (
+            f"题目总数：{total}题\n"
+            f"正确题数：{correct}题\n"
+            f"错误题数：{wrong}题\n"
+            f"未作答题数：{unanswered}题\n"
+            f"无法判断题数：{cannot_judge}题\n"
+            f"答题正确率：{rate}"
+        ),
+        "wrong_list": "\n".join(wrong_qs) if wrong_qs else "无",
+    }
+
+
 # -------------------- 公共流式输出 --------------------
 def build_usage_sse(scenario, in_tok=0, out_tok=0, out_chars=0):
     """把本次调用的 token 与模型元数据封装成发给 Unity 的 usage 事件"""
@@ -197,9 +236,13 @@ async def analyze(request: AnalyzeRequest):
         indent=2,
     )
 
+    stats = calc_quiz_stats(request.experiment_data.questions)
+
     chain_input = {
         "current_exp_knowledge": knowledge,
         "experiment_data": experiment_json,
+        "quiz_text": stats["quiz_text"],
+        "wrong_list": stats["wrong_list"],
     }
 
     return await stream_response(
