@@ -233,7 +233,7 @@ async def analyze(request: AnalyzeRequest):
     experiment_json = json.dumps(
         request.experiment_data.model_dump(),
         ensure_ascii=False,
-        indent=2,
+        separators=(",", ":"),
     )
 
     stats = calc_quiz_stats(request.experiment_data.questions)
