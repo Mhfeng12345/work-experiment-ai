@@ -152,6 +152,28 @@ def calc_quiz_stats(questions: list[QuestionData]) -> dict:
     }
 
 
+# -------------------- 步骤完成情况统计（后端计算，随 /analyze 下发事实） --------------------
+def calc_step_stats(tasks: list[TaskData]) -> dict:
+    task_infos = []
+    steps_total = steps_done = 0
+    for t in tasks:
+        steps_total += len(t.steps)
+        done_n = sum(1 for s in t.steps if (s.status or "").strip().lower() in ("done", "complete", "completed"))
+        steps_done += done_n
+        task_infos.append({
+            "task": t.name,
+            "steps": [{"name": s.name, "status": s.status} for s in t.steps],
+        })
+    rate = f"{round(steps_done / steps_total * 100, 1)}%" if steps_total else "无法计算"
+    return {
+        "task_count": len(tasks),
+        "task_infos": task_infos,
+        "steps_total": steps_total,
+        "steps_done": steps_done,
+        "completion_rate": rate,
+    }
+
+
 # -------------------- 公共流式输出 --------------------
 def build_usage_sse(scenario, in_tok=0, out_tok=0, out_chars=0):
     """把本次调用的 token 与模型元数据封装成发给 Unity 的 usage 事件"""
@@ -230,17 +252,12 @@ async def analyze(request: AnalyzeRequest):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    experiment_json = json.dumps(
-        request.experiment_data.model_dump(),
-        ensure_ascii=False,
-        separators=(",", ":"),
-    )
-
     stats = calc_quiz_stats(request.experiment_data.questions)
 
+    step_stats = calc_step_stats(request.experiment_data.tasks)
     chain_input = {
         "current_exp_knowledge": knowledge,
-        "experiment_data": experiment_json,
+        "experiment_data": json.dumps(step_stats, ensure_ascii=False, separators=(",", ":")),
         "quiz_text": stats["quiz_text"],
         "wrong_list": stats["wrong_list"],
     }
