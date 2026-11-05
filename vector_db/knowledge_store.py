@@ -11,7 +11,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = BASE_DIR.parent
-KNOWLEDGE_DIR = BASE_DIR / "knowledge_docs"
+KNOWLEDGE_DIR = BASE_DIR.parent / "knowledge_data" / "docs"
 CHROMA_DIR = BASE_DIR / "chroma_db"
 EMBEDDING_MODEL_DIR = PROJECT_DIR / "model" / "embedding" / "bge-small-zh-v1.5"
 
