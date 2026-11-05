@@ -1,0 +1,13 @@
+# 构建上下文瘦身（wheels/model 为构建必需，不排除）
+.git
+.gitignore
+.venv/
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+!.env.example
+README.md
+test/ 
+tests/

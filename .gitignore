@@ -46,3 +46,6 @@ model/
 
 # Chroma HNSW 索引文件需要随数据库一起入库
 !vector_db/chroma_db/**/*.bin
+
+# 构建期 wheels（大文件，从镜像提取，不入库）
+wheels/
