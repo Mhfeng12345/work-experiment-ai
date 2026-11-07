@@ -1,6 +1,6 @@
 # experiment-ai 后端镜像（linux/amd64）
 # 结构还原自 experiment-ai:0.2.2（docker history），0.2.3 起构建上下文完整入库。
-# 构建：docker build -t experiment-ai:0.2.3 .
+# 构建：docker build -t experiment-ai:0.2.4 .
 
 FROM python:3.10-slim
 
@@ -37,7 +37,7 @@ ENV APP_HOST=0.0.0.0 APP_PORT=18741 LLM_MODEL=qwen3.5-4b \
     LLM_BASE_URL=http://llama-server:8080/v1 LLM_MAX_TOKENS=2048 \
     AI_MODEL_NAME=qwen3.5-4b AI_MODEL_VERSION=4B-Q4_K_M \
     AI_MODEL_DEPLOYMENT=私有化部署 AI_MODEL_PROVIDER=虚拟仿真实验平台 \
-    APP_VERSION=0.2.3
+    APP_VERSION=0.2.4
 
 EXPOSE 18741
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \

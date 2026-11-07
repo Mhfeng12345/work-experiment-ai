@@ -1,0 +1,432 @@
+{
+    "experiment_data": {
+        "experiment_key": "工业电器_交通灯电机正反转传送带",
+        "tasks": [
+            {
+                "name": "电机正反转控制",
+                "steps": [
+                    {
+                        "name": "步骤1：选择实验",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤2：配置I/O",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤3：连接PLC",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤4：开始编程",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤5：检查初始状态",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤6：发出正转指令",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤7：观察正转自保持",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤8：验证正转时互锁",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤9：停止电机",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤10：发出反转指令",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤11：观察反转与互锁",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤12：再次停止电机",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤13：停止编程",
+                        "status": "completed"
+                    }
+                ]
+            },
+            {
+                "name": "十字路口交通灯",
+                "steps": [
+                    {
+                        "name": "步骤1：选择实验",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤2：配置I/O",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤3：连接PLC",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤4：开始编程",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤5：检查点位配置",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤6：确认相位时长",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤7：启动设备",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤8：观察3/4组直行",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤9：观察3/4组左转",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤10：观察1/2组控制",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤11：检查循环与互斥",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤12：检查四路倒计时",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤13：停止设备",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤14：停止编程",
+                        "status": "completed"
+                    }
+                ]
+            },
+            {
+                "name": "四节传送带控制",
+                "steps": [
+                    {
+                        "name": "步骤1：选择实验",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤2：配置I/O",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤3：连接PLC",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤4：开始编程",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤5：复位并检查",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤6：启动设备",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤7：第一段输送",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤8：第一次中转",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤9：第二段输送",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤10：第二次中转",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤11：第三段输送",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤12：第三次中转",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤13：末段完成停机",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤14：复位并再次启动",
+                        "status": "completed"
+                    },
+                    {
+                        "name": "步骤15：停止编程",
+                        "status": "completed"
+                    }
+                ]
+            }
+        ],
+        "questions": [
+            {
+                "question": "红灯期间的直行倒计时表示什么？",
+                "option": [ "A、永远等于当前相位剩余时间", "B、到本组下次直行绿灯的等待时间", "C、左转绿灯的持续时间", "D、PLC连接耗时" ],
+                "answer": "A",
+                "correct_answer": "B"
+            },
+            {
+                "question": "3/4组左转黄灯结束后，下一阶段是？",
+                "option": [ "A、直接进入1/2组左转绿", "B、直接全部熄灭并断开", "C、3/4组再次直行绿", "D、全红过渡，然后进入1/2组直行绿" ],
+                "answer": "A",
+                "correct_answer": "D"
+            },
+            {
+                "question": "使用场景中的交通灯“停止”按钮后，重新运行应怎样操作？",
+                "option": [ "A、只点启动设备", "B、只修改倒计时", "C、先开始编程，再启动设备", "D、强制绿灯即可" ],
+                "answer": "A",
+                "correct_answer": "C"
+            },
+            {
+                "question": "验证相位循环时，哪类记录最完整？",
+                "option": [ "A、某一帧全部灯状态", "B、完整相位先后、实际时长、模型灯光与点位及倒计时变化", "C、连接成功提示", "D、只看某一个方向绿灯" ],
+                "answer": "A",
+                "correct_answer": "B"
+            },
+            {
+                "question": "判断交通灯互斥控制正常，关键依据是？",
+                "option": [ "A、所有方向同时绿灯", "B、冲突方向不同时放行，灯光符合当前相位", "C、仅倒计时文本改变", "D、所有输出持续True" ],
+                "answer": "B",
+                "correct_answer": "B"
+            },
+            {
+                "question": "点击模拟面板“停止设备”后，预期状态是什么？",
+                "option": [ "A、相位停止、灯光输出关闭，编程状态保留", "B、必须断开连接", "C、继续循环但倒计时隐藏", "D、只关闭左转灯" ],
+                "answer": "B",
+                "correct_answer": "A"
+            },
+            {
+                "question": "从启动开始，前五个相位的正确顺序是？",
+                "option": [ "A、全红→1/2组直行绿→直行黄→左转绿→左转黄", "B、3/4组直行绿→全红→左转黄→左转绿→直行黄", "C、全红→3/4组直行绿→直行黄→左转绿→左转黄", "D、全红→四组同时绿→全红→四组同时黄→全红" ],
+                "answer": "B",
+                "correct_answer": "C"
+            },
+            {
+                "question": "想调整交通灯的实际切换节奏，应该修改什么？",
+                "option": [ "A、强制倒计时显示值", "B、仅修改倒计时文本", "C、反复点击开始编程", "D、直行、左转、黄灯、全红的相位时长参数" ],
+                "answer": "C",
+                "correct_answer": "D"
+            },
+            {
+                "question": "当前交通灯实验需要检查多少路灯光与倒计时？",
+                "option": [ "A、12路灯、2路倒计时", "B、24路灯、4路倒计时", "C、16路灯、4路倒计时", "D、24路灯、1路倒计时" ],
+                "answer": "D",
+                "correct_answer": "B"
+            },
+            {
+                "question": "默认直行、左转、黄灯、全红时长依次为？",
+                "option": [ "A、20、10、3、1秒", "B、10、20、1、3秒", "C、20、20、5、2秒", "D、30、10、3、0秒" ],
+                "answer": "C",
+                "correct_answer": "A"
+            },
+            {
+                "question": "交通灯初始点位检查包括哪些？",
+                "option": [ "A、24路灯光", "B、4路倒计时", "C、布尔与数值显示类型", "D、输出无强制值" ],
+                "answer": "D",
+                "correct_answer": "ABCD"
+            },
+            {
+                "question": "默认相位参数有哪些？",
+                "option": [ "A、直行20秒", "B、左转10秒", "C、黄灯3秒", "D、全红10秒" ],
+                "answer": "D",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "关于相位先后顺序，哪些说法正确？",
+                "option": [ "A、从全红过渡开始", "B、先运行3/4组的直行与左转阶段", "C、全红后再运行1/2组对应阶段", "D、四组冲突方向同时绿灯" ],
+                "answer": "D",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "关于四路直行倒计时，哪些说法正确？",
+                "option": [ "A、同组倒计时一致", "B、绿灯、黄灯显示对应阶段剩余时间", "C、红灯显示到本组下次直行绿灯的等待时间", "D、始终等于当前相位剩余时间" ],
+                "answer": "D",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "下列哪些现象需要作为异常或证据不足处理？",
+                "option": [ "A、冲突方向同时放行", "B、相位次序或实际时长不符设置", "C、仅有连接成功，缺少运行记录", "D、正常全红过渡" ],
+                "answer": "C",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "哪些记录有助于验证倒计时正常？",
+                "option": [ "A、同组两路数值对比", "B、随时间的变化", "C、与直行及等待阶段的对应", "D、手动输入一次数值就认定完整正确" ],
+                "answer": "C",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "关于手动强制倒计时，哪些理解正确？",
+                "option": [ "A、会直接改变自动相位时长", "B、显示值与相位计时是不同数据", "C、恢复自动可解除强制", "D、不能据此证明正常自动倒计时" ],
+                "answer": "C",
+                "correct_answer": "BCD"
+            },
+            {
+                "question": "交通灯正常循环的分析应检查哪些方面？",
+                "option": [ "A、相位顺序与持续时间", "B、灯光点位与模型一致", "C、冲突方向互斥", "D、只凭最终一帧证明完整循环" ],
+                "answer": "D",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "关于模型分组，哪些说法正确？",
+                "option": [ "A、1/2为一组", "B、3/4为一组", "C、必须根据模型编号确认位置", "D、编号必然等同固定东西或南北方向" ],
+                "answer": "D",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "模拟面板“停止设备”应带来哪些结果？",
+                "option": [ "A、自动相位停止", "B、灯光输出关闭", "C、编程状态仍保留", "D、必定断开PLC连接" ],
+                "answer": "A",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "输送完成或超时后，正确的重新运行方式是？",
+                "option": [ "A、直接再次启动", "B、仅点击全部恢复自动", "C、先复位木板、中转台及流程，再启动", "D、强制所有输出为True" ],
+                "answer": "B",
+                "correct_answer": "C"
+            },
+            {
+                "question": "末段完成后，当前版本提示什么？",
+                "option": [ "A、输送完成，请复位后重新启动", "B、请直接反复启动，无需复位", "C、自动进入无限循环，无需检查", "D、必须强制所有输出" ],
+                "answer": "C",
+                "correct_answer": "A"
+            },
+            {
+                "question": "手动把光电信号设为True，能单独证明木板已完成输送吗？",
+                "option": [ "A、能，信号为True就是完成", "B、不能，还需木板位置、真实触发历史与流程证据", "C、只需连接成功即可认定", "D、无需实际操作与模型反馈" ],
+                "answer": "A",
+                "correct_answer": "B"
+            },
+            {
+                "question": "输送过程中，后段主电机提前为True应如何分析？",
+                "option": [ "A、必定违反顺序", "B、当前版本四台主电机同时运行，不能仅据此判错", "C、证明木板已到末端", "D、证明光电传感器失效" ],
+                "answer": "A",
+                "correct_answer": "B"
+            },
+            {
+                "question": "默认四台主传送带电机的输出地址为？",
+                "option": [ "A、M0.0至M0.3", "B、Q1.0至Q1.3", "C、Q0.0至Q0.3", "D、I0.0至I0.3" ],
+                "answer": "A",
+                "correct_answer": "C"
+            },
+            {
+                "question": "第一次中转完成并进入第二段，应该观察到什么？",
+                "option": [ "A、手动将光电2置True即可", "B、木板原地不动", "C、只看到主电机4运行", "D、木板到位，推杆1与中转电机1动作，随后实际触发光电2" ],
+                "answer": "A",
+                "correct_answer": "D"
+            },
+            {
+                "question": "当前四节传送带版本启动时，四台主电机如何运行？",
+                "option": [ "A、只启动第一台", "B、逐台延时启动", "C、四台同时运行", "D、只启动第四台" ],
+                "answer": "B",
+                "correct_answer": "C"
+            },
+            {
+                "question": "六路光电信号默认使用哪些地址？",
+                "option": [ "A、Q0.0至Q0.5", "B、M0.0至M0.5", "C、I1.0至I1.5", "D、Q1.0至Q1.5" ],
+                "answer": "B",
+                "correct_answer": "B"
+            },
+            {
+                "question": "复位检查最应确认哪项？",
+                "option": [ "A、只看全部恢复自动按钮", "B、只看某一路光电True", "C、木板回到起点、三个中转台恢复初始姿态且输出无强制值", "D、只要重新连接成功" ],
+                "answer": "B",
+                "correct_answer": "C"
+            },
+            {
+                "question": "中转转向默认等待时间与单阶段默认超时分别为？",
+                "option": [ "A、1.5秒和30秒", "B、3秒和10秒", "C、10秒和60秒", "D、0秒和30秒" ],
+                "answer": "B",
+                "correct_answer": "A"
+            },
+            {
+                "question": "第三次中转的相关证据有哪些？",
+                "option": [ "A、光电5实际触发与木板到位", "B、推杆3及中转电机3动作", "C、光电6实际触发并进入第四段", "D、只看主电机1输出" ],
+                "answer": "B",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "验证复位后再次启动时，应检查哪些现象？",
+                "option": [ "A、此前已完成一次实际输送", "B、木板与三个中转台及流程已复位", "C、再次启动后木板能够重新运动", "D、只点过复位按钮就认定重新输送完成" ],
+                "answer": "B",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "哪些情况下应先复位再启动？",
+                "option": [ "A、输送完成后", "B、单阶段等待超时后", "C、只因为某一路倒计时数值改变", "D、流程故障停机后" ],
+                "answer": "B",
+                "correct_answer": "ABD"
+            },
+            {
+                "question": "第二次中转与输送应结合哪些信息？",
+                "option": [ "A、光电3的实际触发", "B、中转台2及推杆2、中转电机2的动作", "C、光电4的实际触发与进入第三段", "D、直接使用第一中转台代替" ],
+                "answer": "B",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "复位时应核对哪些项目？",
+                "option": [ "A、木板回到起点", "B、三个中转台恢复初始位置", "C、流程恢复初始状态", "D、输出无强制值" ],
+                "answer": "B",
+                "correct_answer": "ABCD"
+            },
+            {
+                "question": "四节传送带启动时，哪些现象符合当前版本？",
+                "option": [ "A、四台主电机同时运行", "B、木板从第一段开始前进", "C、后段主电机True不能单独判为顺序错误", "D、主电机必须严格逐台延时启动" ],
+                "answer": "B",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "末段完成应具有哪些证据？",
+                "option": [ "A、木板实际到达末端", "B、设备停机并关闭输出", "C、显示输送完成并要求复位的提示", "D、再次启动无需复位" ],
+                "answer": "A",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "当前版本的时间参数包括哪些？",
+                "option": [ "A、中转转向默认约1.5秒", "B、单阶段等待超时默认30秒", "C、全部恢复自动后固定等待30秒完成复位", "D、应结合实际等待记录判断超时" ],
+                "answer": "A",
+                "correct_answer": "ABD"
+            },
+            {
+                "question": "第一次中转完成的证据应包括哪些？",
+                "option": [ "A、木板实际到位", "B、推杆1与中转电机1动作", "C、随后实际触发光电2并进入第二段", "D、只手动将光电2改成True" ],
+                "answer": "A",
+                "correct_answer": "ABC"
+            },
+            {
+                "question": "关于默认点位，哪些对应正确？",
+                "option": [ "A、主电机1至4为Q0.0至Q0.3", "B、推杆1至3为Q0.4至Q0.6", "C、中转电机1至3为Q1.0至Q1.2", "D、光电1至6为M0.0至M0.5" ],
+                "answer": "A",
+                "correct_answer": "ABCD"
+            }
+        ]
+    }
+}
