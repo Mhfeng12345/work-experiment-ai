@@ -1,6 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate
 
-EXPERIMENT_PROMPT = ChatPromptTemplate.from_messages([
+EXPERIMENT_ANALYSE_PROMPT = ChatPromptTemplate.from_messages([
     (
         "system",
         """
@@ -97,3 +97,6 @@ QA_PROMPT = ChatPromptTemplate.from_messages([
         """
             ),
     ])
+
+
+# ---------------------------特殊实验适配提示词 ---------------------------

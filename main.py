@@ -10,10 +10,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
-from knowledge_base import get_knowledge, EXPERIMENT_KNOWLEDGE_MAP
-from prompts import EXPERIMENT_PROMPT, QA_PROMPT
+from knowledge_base import get_knowledge, get_snapshot_knowledge, EXPERIMENT_KNOWLEDGE_MAP
+from prompts import EXPERIMENT_ANALYSE_PROMPT, QA_PROMPT
 
 from vector_db.knowledge_store import (
     list_experiment_keys,
@@ -36,7 +36,11 @@ AI_MODEL_PROVIDER = os.getenv("AI_MODEL_PROVIDER", "XXX大学")
 SCENARIOS = {
     "knowledgeDBChat": "知识问答",
     "analyze": "实验分析",
+    "analyse/WSTES_SlotType": "实验分析",
 }
+
+# 特殊实验模块：提示词外置于 snapshot_prompts.yaml，key 与请求「实验模块」同名（与实验知识库分离）
+SNAPSHOT_MODULES = ("槽式自由搭建", "槽式场景漫游DCS")
 
 app = FastAPI(title="Experiment AI API")
 
@@ -53,12 +57,12 @@ llm = ChatOpenAI(
     base_url=os.getenv("LLM_BASE_URL", "http://127.0.0.1:19874/v1"),
     api_key=os.getenv("LLM_API_KEY", "not-needed"),
     temperature=0.2,
-    max_tokens=int(os.getenv("LLM_MAX_TOKENS", "2048")),
+    max_tokens=int(os.getenv("LLM_MAX_TOKENS", "6144")),
     stream_usage=True,
     extra_body=json.loads(os.getenv("LLM_REASONING_BODY") or "{}"),
 )
 
-chain = EXPERIMENT_PROMPT | llm
+exp_analyse_chain = EXPERIMENT_ANALYSE_PROMPT | llm
 qa_chain = QA_PROMPT | llm
 
 
@@ -263,9 +267,31 @@ async def analyze(request: AnalyzeRequest):
     }
 
     return await stream_response(
-        chain.astream(chain_input, stream_mode="messages"),
+        exp_analyse_chain.astream(chain_input, stream_mode="messages"),
         error_prefix=f"分析失败 [{exp_key}]",
         scenario=SCENARIOS["analyze"],
+    )
+
+
+@app.post("/analyse/WSTES_SlotType")
+async def analyse_snapshot(payload: dict):
+    """槽式自由搭建/场景漫游DCS 快照分析"""
+    module = payload.get("实验模块")
+    if module not in SNAPSHOT_MODULES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"不支持的实验模块「{module}」，当前支持: {'、'.join(SNAPSHOT_MODULES)}",
+        )
+
+    messages = [
+        SystemMessage(content=get_snapshot_knowledge(module)),
+        HumanMessage(content="当前实验数据：\n" + json.dumps(payload, ensure_ascii=False)),
+    ]
+
+    return await stream_response(
+        llm.astream(messages),
+        error_prefix=f"槽式分析失败 [{module}]",
+        scenario=SCENARIOS["analyse/WSTES_SlotType"],
     )
 
 
