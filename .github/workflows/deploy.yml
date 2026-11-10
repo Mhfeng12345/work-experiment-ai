@@ -1,0 +1,49 @@
+name: Deploy Experiment AI
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experiment-ai-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Check Docker access
+        run: |
+          docker info
+
+      - name: Prepare build context (wheels + embedding model)
+        run: |
+          SRC=/home/wdzm71/build-src
+          test -d "$SRC/wheels" || { echo "::error::$SRC/wheels 不存在，请先将构建材料拷贝到 Runner 机（build-src 包）"; exit 1; }
+          test -d "$SRC/model/embedding/bge-small-zh-v1.5" || { echo "::error::$SRC/model/embedding/bge-small-zh-v1.5 不存在"; exit 1; }
+          cp -r "$SRC/wheels" ./wheels
+          mkdir -p model/embedding
+          cp -r "$SRC/model/embedding/bge-small-zh-v1.5" ./model/embedding/
+          echo "构建上下文已补齐: wheels + bge-small-zh-v1.5"
+
+      - name: Build image
+        run: |
+          docker build -t experiment-ai:latest .
+
+      - name: Update container
+        run: |
+          docker compose -f /home/wdzm71/docker-compose.yml up -d --no-deps --force-recreate experiment-ai
+
+      - name: Verify deployment
+        run: |
+          docker compose -f /home/wdzm71/docker-compose.yml ps experiment-ai
