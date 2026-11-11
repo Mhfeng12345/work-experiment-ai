@@ -41,7 +41,9 @@ jobs:
 
       - name: Build image
         run: |
-          docker build -t experiment-ai:latest .
+          APP_VERSION=$(grep -oP 'APP_VERSION=\K[0-9.]+' Dockerfile | head -1)
+          echo "构建版本: ${APP_VERSION}"
+          docker build -t experiment-ai:latest -t "experiment-ai:${APP_VERSION}" .
 
       - name: Update container
         run: |
