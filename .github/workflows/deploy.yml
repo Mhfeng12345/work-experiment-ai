@@ -19,8 +19,11 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+      - name: Checkout source (LAN mirror)
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          find . -mindepth 1 -delete
+          git clone --depth 1 git://192.168.0.50:9418/experiment-ai .
 
       - name: Check Docker access
         run: |
