@@ -32,7 +32,7 @@ AI_MODEL_VERSION = os.getenv("AI_MODEL_VERSION", "4B-Q4_K_M")
 AI_MODEL_DEPLOYMENT = os.getenv("AI_MODEL_DEPLOYMENT", "本地运行")
 AI_MODEL_PROVIDER = os.getenv("AI_MODEL_PROVIDER", "XXX大学")
 
-# 端点 → AI 使用场景（单一事实源：改场景词/加端点只动这里）
+# 端点 → AI 使用场景
 SCENARIOS = {
     "knowledgeDBChat": "知识问答",
     "analyze": "实验分析",
@@ -141,7 +141,8 @@ def calc_quiz_stats(questions: list[QuestionData]) -> dict:
             wrong += 1
             wrong_qs.append(f"题：{q.question} | 答：{q.answer} | 正确：{q.correct_answer}")
 
-    rate = f"{round(correct / (correct + wrong) * 100, 1)}%" if (correct + wrong) else "无法计算"
+    denom = correct + wrong + unanswered
+    rate = f"{round(correct / denom * 100, 1)}%" if denom else "无法计算"
 
     return {
         "quiz_text": (
