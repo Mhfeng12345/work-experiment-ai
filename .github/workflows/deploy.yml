@@ -28,7 +28,8 @@ jobs:
       - name: Pull image from GHCR (mirror + retry)
         run: |
           IMAGE="mhfeng12345/work-experiment-ai:latest"
-          for REG in ghcr.m.daocloud.io ghcr.io; do
+          # 国内镜像站（代理任意 GHCR 镜像）优先，ghcr.io 直连兜底；各 3 次
+          for REG in ghcr.nju.edu.cn ghcr.dockerproxy.net ghcr.io; do
             for TRY in 1 2 3; do
               echo "尝试 [$REG] 第${TRY}次: ${REG}/${IMAGE}"
               if docker pull "${REG}/${IMAGE}"; then
