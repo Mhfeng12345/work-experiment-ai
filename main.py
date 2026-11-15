@@ -5,7 +5,7 @@ import threading
 import time
 from dotenv import load_dotenv
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -14,6 +14,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from knowledge_base import get_knowledge, get_snapshot_knowledge, EXPERIMENT_KNOWLEDGE_MAP
 from prompts import EXPERIMENT_ANALYSE_PROMPT, QA_PROMPT
+from auth import verify_token
 
 from vector_db.knowledge_store import (
     list_experiment_keys,
@@ -242,13 +243,13 @@ async def health():
     return {"status": "ok"}
 
 
-@app.get("/experiments")
+@app.get("/experiments", dependencies=[Depends(verify_token)])
 async def list_experiments():
     """查看当前支持的实验简称"""
     return {"supported": await asyncio.to_thread(list_experiment_keys)}
 
 
-@app.post("/analyze")
+@app.post("/analyze", dependencies=[Depends(verify_token)])
 async def analyze(request: AnalyzeRequest):
     exp_key = request.experiment_data.experiment_key
 
@@ -274,7 +275,7 @@ async def analyze(request: AnalyzeRequest):
     )
 
 
-@app.post("/analyse/WSTES_SlotType")
+@app.post("/analyse/WSTES_SlotType", dependencies=[Depends(verify_token)])
 async def analyse_snapshot(payload: dict):
     """槽式自由搭建/场景漫游DCS 快照分析"""
     module = payload.get("实验模块")
@@ -296,7 +297,7 @@ async def analyse_snapshot(payload: dict):
     )
 
 
-@app.post("/chat")
+@app.post("/chat", dependencies=[Depends(verify_token)])
 async def chat(request: ChatRequest):
     """最简聊天接口：输入字符串，流式返回回复（暂无记忆、无知识库）"""
     return await stream_response(
@@ -304,7 +305,7 @@ async def chat(request: ChatRequest):
     )
 
 
-@app.post("/knowledgeDBChat")
+@app.post("/knowledgeDBChat", dependencies=[Depends(verify_token)])
 async def experiment_chat(request: ExperimentChatRequest):
     """基于指定实验知识库的 RAG 问答"""
     exp_key = request.experiment_key

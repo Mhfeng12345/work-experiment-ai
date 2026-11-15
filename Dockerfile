@@ -37,7 +37,7 @@ ENV APP_HOST=0.0.0.0 APP_PORT=18741 LLM_MODEL=qwen3.5-4b \
     LLM_BASE_URL=http://llama-server:8080/v1 LLM_MAX_TOKENS=2048 \
     AI_MODEL_NAME=qwen3.5-4b AI_MODEL_VERSION=4B-Q4_K_M \
     AI_MODEL_DEPLOYMENT=私有化部署 AI_MODEL_PROVIDER=虚拟仿真实验平台 \
-    APP_VERSION=0.2.4
+    APP_VERSION=0.2.4 AUTH_ENABLED=false
 
 EXPOSE 18741
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
