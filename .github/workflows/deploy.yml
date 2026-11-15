@@ -25,11 +25,22 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Pull image from GHCR
+      - name: Pull image from GHCR (mirror + retry)
         run: |
-          IMAGE="ghcr.io/mhfeng12345/work-experiment-ai:latest"
-          echo "拉取镜像: ${IMAGE}"
-          docker pull "${IMAGE}"
+          IMAGE="mhfeng12345/work-experiment-ai:latest"
+          for REG in ghcr.m.daocloud.io ghcr.io; do
+            for TRY in 1 2 3; do
+              echo "尝试 [$REG] 第${TRY}次: ${REG}/${IMAGE}"
+              if docker pull "${REG}/${IMAGE}"; then
+                echo "PULL_OK=${REG}/${IMAGE}"
+                docker tag "${REG}/${IMAGE}" "ghcr.io/${IMAGE}"
+                exit 0
+              fi
+              echo "失败，3s 后重试"
+              sleep 3
+            done
+          done
+          echo "所有源均失败" && exit 1
 
       - name: Resolve image version and tag
         run: |
