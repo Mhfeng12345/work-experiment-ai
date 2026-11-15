@@ -14,9 +14,10 @@ RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc
 
 WORKDIR /app
 
-# Python 依赖（torch CPU 官方源直下，其余 lock 清华镜像；构建上下文不再需要本地 wheels）
+# Python 依赖（torch CPU 用 extra-index 从官方源取（主索引清华），其余 lock 清华镜像；构建上下文不再需要本地 wheels）
 COPY requirements.lock.linux.txt requirements.lock.txt
-RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
     torch==2.14.1+cpu
 RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
     -r requirements.lock.txt
