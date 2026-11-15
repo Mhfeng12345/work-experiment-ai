@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 concurrency:
@@ -70,3 +70,19 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
+
+      # tag 触发：GHCR push 后把镜像打成 tar.gz 挂到该 tag 的 Release（离线交付物）
+      - name: Save and compress image tar
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        run: |
+          VER="${GITHUB_REF_NAME#v}"
+          docker pull "${{ env.IMAGE }}:${VER}"
+          docker save "${{ env.IMAGE }}:${VER}" | gzip > "experiment-ai-${VER}.tar.gz"
+          ls -lh "experiment-ai-${VER}.tar.gz"
+
+      - name: Upload tar to release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: experiment-ai-*.tar.gz
