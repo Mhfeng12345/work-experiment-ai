@@ -1,3 +1,8 @@
+# 内网 Runner 部署：从 GHCR 拉取镜像 → 重建容器
+# 0.2.5 起不再本地构建（云端 docker-ghcr.yml 负责构建推送）。
+# 依赖：仓库 Secrets 配 GHCR_PAT（read:packages 的 PAT，用于 docker login ghcr.io）。
+# 触发：push 到默认分支 / 手动。镜像 tag 从 Dockerfile 的 APP_VERSION 读取。
+
 name: Deploy Experiment AI
 
 on:
@@ -25,25 +30,22 @@ jobs:
           find . -mindepth 1 -delete
           git clone --depth 1 git://192.168.0.50:9418/experiment-ai .
 
-      - name: Check Docker access
+      - name: Resolve image version
+        id: ver
         run: |
-          docker info
+          echo "APP_VERSION=$(grep -oP 'APP_VERSION=\K[0-9.]+' Dockerfile | head -1)" >> "$GITHUB_OUTPUT"
 
-      - name: Prepare build context (wheels + embedding model)
+      - name: Log in to GHCR
         run: |
-          SRC=/home/wdzm71/build-src
-          test -d "$SRC/wheels" || { echo "::error::$SRC/wheels 不存在，请先将构建材料拷贝到 Runner 机（build-src 包）"; exit 1; }
-          test -d "$SRC/model/embedding/bge-small-zh-v1.5" || { echo "::error::$SRC/model/embedding/bge-small-zh-v1.5 不存在"; exit 1; }
-          cp -r "$SRC/wheels" ./wheels
-          mkdir -p model/embedding
-          cp -r "$SRC/model/embedding/bge-small-zh-v1.5" ./model/embedding/
-          echo "构建上下文已补齐: wheels + bge-small-zh-v1.5"
+          echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
-      - name: Build image
+      - name: Pull image from GHCR
         run: |
-          APP_VERSION=$(grep -oP 'APP_VERSION=\K[0-9.]+' Dockerfile | head -1)
-          echo "构建版本: ${APP_VERSION}"
-          docker build -t experiment-ai:latest -t "experiment-ai:${APP_VERSION}" .
+          IMAGE="ghcr.io/${{ github.repository }}:${{ steps.ver.outputs.APP_VERSION }}"
+          echo "拉取镜像: ${IMAGE}"
+          docker pull "${IMAGE}"
+          docker tag "${IMAGE}" experiment-ai:latest
+          docker tag "${IMAGE}" "experiment-ai:${{ steps.ver.outputs.APP_VERSION }}"
 
       - name: Update container
         run: |

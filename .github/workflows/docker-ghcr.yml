@@ -1,0 +1,71 @@
+# 云端构建 experiment-ai 镜像并推送 GHCR（GitHub Container Registry）
+# 触发：
+#   - push tag v*      → 构建 + 推送 GHCR（:0.2.5 与 :latest）
+#   - push master      → 仅构建（CI 校验 Dockerfile 可用性，不推送）
+# 镜像：ghcr.io/mhfeng12345/work-experiment-ai:<tag>
+# 说明：构建期 torch 从官方 CPU 源直下、bge 从 HF 直下（Dockerfile 内），
+#       仓库无需提交 wheels/ 与 model/ 大文件；.env 已由 .dockerignore 排除。
+
+name: Docker GHCR
+
+on:
+  push:
+    branches: [master]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: docker-ghcr
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute tags
+        id: meta
+        shell: bash
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            VER="${GITHUB_REF_NAME#v}"
+            TAGS="${{ env.IMAGE }}:${VER},${{ env.IMAGE }}:latest"
+            PUSH="true"
+          else
+            TAGS="${{ env.IMAGE }}:ci-${{ github.sha }}"
+            PUSH="false"
+          fi
+          echo "tags=${TAGS}" >> "$GITHUB_OUTPUT"
+          echo "push=${PUSH}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ steps.meta.outputs.push }}
+          tags: ${{ steps.meta.outputs.tags }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64

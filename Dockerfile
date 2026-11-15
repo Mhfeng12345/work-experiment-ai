@@ -1,6 +1,6 @@
 # experiment-ai 后端镜像（linux/amd64）
 # 结构还原自 experiment-ai:0.2.2（docker history），0.2.3 起构建上下文完整入库。
-# 构建：docker build -t experiment-ai:0.2.4 .
+# 构建：docker build -t experiment-ai:0.2.5 .
 
 FROM python:3.10-slim
 
@@ -14,18 +14,19 @@ RUN sed -i 's|http://deb.debian.org|https://mirrors.tuna.tsinghua.edu.cn|g' /etc
 
 WORKDIR /app
 
-# Python 依赖（torch CPU 用 wheels，其余用 lock 文件，镜像源清华）
+# Python 依赖（torch CPU 官方源直下，其余 lock 清华镜像；构建上下文不再需要本地 wheels）
 COPY requirements.lock.linux.txt requirements.lock.txt
-COPY wheels/ /wheels/
-RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
-    --find-links /wheels torch==2.14.1+cpu
+RUN pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+    torch==2.14.1+cpu
 RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
     -r requirements.lock.txt
+# Embedding 模型：构建期从 HF 直下，固定 revision 保证可复现（部署端离线使用，~100MB）
+# 注意：顶部 HF_HUB_OFFLINE=1 是运行时离线设定，此 RUN 需临时置 0 才允许网络
+RUN HF_HUB_OFFLINE=0 python -c "from huggingface_hub import snapshot_download; snapshot_download('BAAI/bge-small-zh-v1.5', local_dir='model/embedding/bge-small-zh-v1.5', revision='7999e1d3359715c523056ef9478215996d62a620')"
 
 # 应用代码与数据（知识外置：knowledge_data 含 experiments_prompts.yaml + docs/*.md）
-COPY main.py prompts.py knowledge_base.py chroma_controller.py validate_knowledge.py ./
+COPY main.py auth.py prompts.py knowledge_base.py chroma_controller.py validate_knowledge.py ./
 COPY knowledge_data/ ./knowledge_data/
-COPY model/embedding/bge-small-zh-v1.5/ ./model/embedding/bge-small-zh-v1.5/
 COPY test_data/ ./test_data/
 COPY vector_db/ ./vector_db/
 COPY entrypoint.sh /app/entrypoint.sh
@@ -37,7 +38,7 @@ ENV APP_HOST=0.0.0.0 APP_PORT=18741 LLM_MODEL=qwen3.5-4b \
     LLM_BASE_URL=http://llama-server:8080/v1 LLM_MAX_TOKENS=2048 \
     AI_MODEL_NAME=qwen3.5-4b AI_MODEL_VERSION=4B-Q4_K_M \
     AI_MODEL_DEPLOYMENT=私有化部署 AI_MODEL_PROVIDER=虚拟仿真实验平台 \
-    APP_VERSION=0.2.4 AUTH_ENABLED=false
+    APP_VERSION=0.2.5 AUTH_ENABLED=false
 
 EXPOSE 18741
 HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \

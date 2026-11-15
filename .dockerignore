@@ -11,3 +11,6 @@ __pycache__/
 README.md
 test/ 
 tests/
+# 0.2.5 起构建期从官方源/HF 直下，本地材料不再需要
+wheels/
+model/
