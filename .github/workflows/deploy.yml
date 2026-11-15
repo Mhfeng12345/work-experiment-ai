@@ -1,7 +1,8 @@
 # 内网 Runner 部署：从 GHCR 拉取镜像 → 重建容器
-# 0.2.5 起不再本地构建（云端 docker-ghcr.yml 负责构建推送）。
+# 0.2.5 起不再本地构建（云端 docker-ghcr.yml 负责构建推送），也不依赖 LAN mirror git daemon。
 # GHCR 镜像公开（ghcr.io/mhfeng12345/work-experiment-ai），pull 无需登录/PAT。
-# 触发：push 到默认分支 / 手动。镜像 tag 从 Dockerfile 的 APP_VERSION 读取。
+# 版本号从镜像 ENV APP_VERSION 读取（无需 checkout 仓库）。
+# 触发：push 到默认分支 / 手动。
 
 name: Deploy Experiment AI
 
@@ -24,24 +25,20 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Checkout source (LAN mirror)
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          find . -mindepth 1 -delete
-          git clone --depth 1 git://192.168.0.50:9418/experiment-ai .
-
-      - name: Resolve image version
-        id: ver
-        run: |
-          echo "APP_VERSION=$(grep -oP 'APP_VERSION=\K[0-9.]+' Dockerfile | head -1)" >> "$GITHUB_OUTPUT"
-
       - name: Pull image from GHCR
         run: |
-          IMAGE="ghcr.io/mhfeng12345/work-experiment-ai:${{ steps.ver.outputs.APP_VERSION }}"
+          IMAGE="ghcr.io/mhfeng12345/work-experiment-ai:latest"
           echo "拉取镜像: ${IMAGE}"
           docker pull "${IMAGE}"
+
+      - name: Resolve image version and tag
+        run: |
+          IMAGE="ghcr.io/mhfeng12345/work-experiment-ai:latest"
+          VER=$(docker image inspect "${IMAGE}" --format '{{range .Config.Env}}{{println .}}{{end}}' \
+                | grep -oP 'APP_VERSION=\K[0-9.]+' | head -1)
+          echo "APP_VERSION=${VER}"
           docker tag "${IMAGE}" experiment-ai:latest
-          docker tag "${IMAGE}" "experiment-ai:${{ steps.ver.outputs.APP_VERSION }}"
+          docker tag "${IMAGE}" "experiment-ai:${VER}"
 
       - name: Update container
         run: |
