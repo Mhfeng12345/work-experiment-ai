@@ -23,7 +23,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  IMAGE: ghcr.io/${{ github.repository }}
+  # GHCR 镜像路径必须小写（github.repository 是 Mhfeng12345/...，含大写，不能直接用）
+  IMAGE: ghcr.io/mhfeng12345/work-experiment-ai
 
 jobs:
   build:

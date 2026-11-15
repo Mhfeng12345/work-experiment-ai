@@ -41,7 +41,7 @@ jobs:
 
       - name: Pull image from GHCR
         run: |
-          IMAGE="ghcr.io/${{ github.repository }}:${{ steps.ver.outputs.APP_VERSION }}"
+          IMAGE="ghcr.io/mhfeng12345/work-experiment-ai:${{ steps.ver.outputs.APP_VERSION }}"
           echo "拉取镜像: ${IMAGE}"
           docker pull "${IMAGE}"
           docker tag "${IMAGE}" experiment-ai:latest
