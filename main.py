@@ -14,7 +14,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 
 from knowledge_base import get_knowledge, get_snapshot_knowledge, EXPERIMENT_KNOWLEDGE_MAP
 from prompts import EXPERIMENT_ANALYSE_PROMPT, QA_PROMPT
-from auth import verify_token
+from auth import verify_token, AUTH_ENABLED
 
 from vector_db.knowledge_store import (
     list_experiment_keys,
@@ -240,7 +240,7 @@ async def stream_response(generator, error_prefix: str = "请求失败", scenari
 # -------------------- 接口 --------------------
 @app.get("/health")
 async def health():
-    return {"status": "ok"}
+    return {"status": "ok", "auth_enabled": AUTH_ENABLED}
 
 
 @app.get("/experiments", dependencies=[Depends(verify_token)])
