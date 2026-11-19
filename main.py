@@ -26,6 +26,7 @@ load_dotenv()
 
 APP_HOST = os.getenv("APP_HOST", "0.0.0.0")
 APP_PORT = int(os.getenv("APP_PORT", "18741"))
+DOCS_ENABLED = os.getenv("DOCS_ENABLED", "true").strip().lower() in ("1", "true", "yes", "on")
 
 # AI 使用上报元数据（发给 Unity 的 ai_data 来源）
 AI_MODEL_NAME = os.getenv("AI_MODEL_NAME") or os.getenv("LLM_MODEL", "qwen3.5-4b")
@@ -43,7 +44,12 @@ SCENARIOS = {
 # 特殊实验模块：提示词外置于 snapshot_prompts.yaml，key 与请求「实验模块」同名（与实验知识库分离）
 SNAPSHOT_MODULES = ("槽式自由搭建", "槽式场景漫游DCS")
 
-app = FastAPI(title="Experiment AI API")
+app = FastAPI(
+    title="Experiment AI API",
+    docs_url="/docs" if DOCS_ENABLED else None,
+    redoc_url="/redoc" if DOCS_ENABLED else None,
+    openapi_url="/openapi.json" if DOCS_ENABLED else None,
+)
 
 app.add_middleware(
     CORSMiddleware,
